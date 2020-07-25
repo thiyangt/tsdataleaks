@@ -1,6 +1,6 @@
 Package: tsdataleaks
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Exploit data leakages in time series forecasting competitions
 Version: 0.1.0
 Author: Thiyanga S. Talagala
 Maintainer: Thiyanga S. Talagala <ttalagala@sjp.ac.lk>
@@ -8,4 +8,4 @@ Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
-LazyData: true
+LazyData: false
