@@ -2,10 +2,20 @@ Package: tsdataleaks
 Type: Package
 Title: Exploit data leakages in time series forecasting competitions
 Version: 0.1.0
-Author: Thiyanga S. Talagala
-Maintainer: Thiyanga S. Talagala <ttalagala@sjp.ac.lk>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: 
+    person(given = "Thiyanga",
+           family = "Talagala",
+           role = c("aut", "cre"),
+           email = "ttalagal@sjp.ac.lk",
+           comment = c(ORCID = "0000-0002-0656-9789"))
+Description: Data leaks.
+License: GPL-3
+Depends:
+    R (>= 4.0.2),
+Imports:
+        stats,
+        tsibble,
+        tidyverse
 Encoding: UTF-8
-LazyData: false
+LazyData: true
+RoxygenNote: 7.1.1
