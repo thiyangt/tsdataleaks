@@ -15,7 +15,11 @@ Depends:
 Imports:
         stats,
         tsibble,
-        tidyverse
+        tidyverse,
+        plyr,
+        slider,
+        tibble, 
+        purrr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

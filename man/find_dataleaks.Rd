@@ -4,10 +4,10 @@
 \alias{find_dataleaks}
 \title{Correlation calculation based on rolling window with overlapping observations.}
 \usage{
-find_dataleaks(x, h, cutoff = 1)
+find_dataleaks(lstx, h, cutoff = 1)
 }
 \arguments{
-\item{x}{list of time series}
+\item{lstx}{list of time series}
 
 \item{h}{length of forecast horizon}
 
