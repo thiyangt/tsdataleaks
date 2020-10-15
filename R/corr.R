@@ -10,11 +10,9 @@
 ts.match <- function(x, y, cutoff=1){
   slide.size <- length(y)
   fn <- function(x){stats::cor(x, y)}
- # match.index <- round(tsibble::slide_dbl(x, function(x){stats::cor(x, y)}, .size = slide.size,
-  #                                         .partial = TRUE), 4)
   match.index <- round(slider::slide_dbl(x, fn, .before = slide.size - 1L, .complete = TRUE), 4)
   index.cutoff.end <- which(match.index >= cutoff)
-    index.cutoff.start <- index.cutoff.end - (slide.size-1)
+    index.cutoff.start <- index.cutoff.end - (slide.size-1L)
 
 
     if(length(index.cutoff.end) == 0){
