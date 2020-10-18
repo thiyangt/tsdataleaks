@@ -83,7 +83,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
  #   geom_tile(colour = "black", size=0.25) +  scale_fill_viridis_d(option = "plasma")
  # g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason")) +
 
-  df2 <- df2 %>% filter(is.useful.leak=="useful")
+  #df2 <- df2 %>% filter(is.useful.leak=="useful")
     df2
 
 }

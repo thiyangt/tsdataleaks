@@ -6,7 +6,7 @@
 #' @importFrom ggplot2 ggplot
 #' @return  matrix visualizing the output
 #' @export
-viz_dataleaks <- function(finddataleaksout){
+viz_details <- function(finddataleaksout, reasondataleaksout){
 
   if(length(finddataleaksout)==0){x <- readline("Empty list!\n(press enter to continue)")
    return(finddataleaksout)}
@@ -30,12 +30,24 @@ viz_dataleaks <- function(finddataleaksout){
   df3 <- df3 %>% tidyr::expand(series1, .id)
   df2 <- complete(df2, df3)
 
-  list(
-  ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= count)) +
+  reasondataleaksout2 <- reasondataleaksout %>% filter(is.useful.leak=="useful")
+
+  t <- left_join(df2, reasondataleaksout2)
+
+  #useful <- reasondataleaksout %>% filter(is.useful.leak=="useful")
+ # notuseful <- reasondataleaksout %>% filter(is.useful.leak=="not useful")
+  #t2 <- t[rowSums(is.na(t)) > 0,]
+
+
+  g1 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= is.useful.leak)) +
     geom_tile(colour = "black", size=0.25) +
-    scale_fill_viridis(option="viridis", na.value = "white") +
-    labs(x = "Matching series", y ="Series to forecast"),
-  finddataleaksout)
+   scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3")) +
+     labs(x = "Matching series", y ="Series to forecast")
+   g2 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= reason)) +
+     geom_tile(colour = "black", size=0.25) +  scale_fill_viridis_d(option = "plasma") +
+     labs(x = "Matching series", y ="Series to forecast")
+   g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason"))
+   return(g3)
 }
 #' @examples
 #' a = rnorm(15)
@@ -46,16 +58,9 @@ viz_dataleaks <- function(finddataleaksout){
 #'  d = rnorm(10)
 #')
 #'f1 <- find_dataleaks(lst, h=5)
-#'viz_dataleaks(f1)
+#'r1 <- reason_dataleaks(lst, f1, h=5)
+#'viz_details(f1, r1)
 #'
-#' a = rnorm(15)
-#'lst <- list(
-#'  x= a,
-#'  y= c(rnorm(10), a[1:5])
-#')
-#'
-#'f2 <- find_dataleaks(lst, h=5)
-#'viz_dataleaks(f2)
 #'
 #'# List without naming elements
 #' lst <- list(
@@ -63,6 +68,7 @@ viz_dataleaks <- function(finddataleaksout){
 #'  c(rnorm(10), a[1:5], a[1:5]),
 #'  rnorm(10)
 #')
-#'f3 <- find_dataleaks(lst, h=5)
-#'viz_dataleaks(f3)
+#'f2 <- find_dataleaks(lst, h=5)
+#'r2 <- reason_dataleaks(lst, f2, h=5)
+#'viz_details(f2, r2)
 
