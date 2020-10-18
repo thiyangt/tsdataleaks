@@ -1,47 +1,37 @@
 #' Correlation calculation based on rolling window with overlapping observations.
 #'
+#' @param lstx list of time series
 #' @param finddataleaksout list, the output generated from find_dataleaks function
+#' @param h length of the window size
 #' @importFrom  tibble rownames_to_column
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @return  matrix visualizing the output
 #' @export
-viz_dataleaks <- function(finddataleaksout){
+calc_distance <- function(lstx, finddataleaksout, h){
 
   if(length(finddataleaksout)==0){x <- readline("Empty list!\n(press enter to continue)")
    return(finddataleaksout)}
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
   df <- tibble::rownames_to_column(leaksdf, "Series1")
-  df2 <- df %>% separate(Series1, c("series1", "N"))
+  df2 <- df %>% tidyr::separate(Series1, c("series1", "N"))
   df2 <- df2 %>% select(c("series1", ".id"))
-  # Count the combinations considerting the columns series1 and .id
-  names(df2) <- make.names(names(df2))
+  nleaks <- nrow(df2)
+  for (i in 1:nleaks){
 
 
 
-  df2 <- df2 %>%
-    group_by(.dots=names(df2)) %>%
-    summarise(count= n())
+  }
 
-  alllevels <- levels(as.factor(c(df2$series1, df2$.id)))
-  df3 <- data.frame(series1=alllevels, .id=alllevels)
 
-  df3 <- df3 %>% tidyr::expand(series1, .id)
-  df2 <- complete(df2, df3)
-
-  list(
-  ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= count)) +
-    geom_tile(colour = "black", size=0.25) + scale_fill_viridis(option="viridis", na.value = "white") ,
-  finddataleaksout)
 }
 #' @examples
 #' a = rnorm(15)
-#'lst <- list(
+#' lst <- list(
 #'  a = a,
 #'  b = c(a[10:15], rnorm(10), a[1:5], a[1:5]),
-#'  c = c(rnorm(10), a[1:5]),
-#'  d = rnorm(10)
+#'  c = c(rnorm(10), a[1:5])
 #')
 #'f1 <- find_dataleaks(lst, h=5)
 #'viz_dataleaks(f1)
