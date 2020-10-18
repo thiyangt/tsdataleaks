@@ -11,7 +11,7 @@ Authors@R:
 Description: Data leaks.
 License: GPL-3
 Depends:
-    R (>= 4.0.0),
+    R (>= 4.0.0)
 Imports:
         stats,
         tidyverse,

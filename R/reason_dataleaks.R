@@ -75,7 +75,16 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
     dplyr::mutate(reason = ifelse(dist_mean == 0 & dist_sd == 0 , "exact match",
                        ifelse(dist_mean != 0 & dist_sd == 0 , "add constant", "Do not know")))
 
-  df2
+ # g1 <- ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= is.useful.leak)) +
+ #   geom_tile(colour = "black", size=0.25) +
+ #   scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3")) +
+ #   labs(x = "Matching series", y ="Series to forecast")
+ # g2 <- ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= reason)) +
+ #   geom_tile(colour = "black", size=0.25) +  scale_fill_viridis_d(option = "plasma")
+ # g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason")) +
+
+  df2 <- df2 %>% filter(is.useful.leak=="useful")
+    df2
 
 }
 #' @examples
