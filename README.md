@@ -117,14 +117,14 @@ towards the winning of the competition
 r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 r1
 [[1]]
-  series1 .id start end dist_mean      dist_sd is.useful.leak      reason
-1       a   b     2   6        -8 4.440892e-16         useful Do not know
-2       b   a     1   5         0 0.000000e+00         useful exact match
-3       b   b    17  21         0 0.000000e+00         useful exact match
-4       b   c    11  15         0 0.000000e+00     not useful exact match
-5       c   a     1   5         0 0.000000e+00         useful exact match
-6       c   b    17  21         0 0.000000e+00         useful exact match
-7       c   b    22  26         0 0.000000e+00     not useful exact match
+  series1 .id start end dist_mean dist_sd is.useful.leak       reason
+1       a   b     2   6        -8       0         useful add constant
+2       b   a     1   5         0       0         useful  exact match
+3       b   b    17  21         0       0         useful  exact match
+4       b   c    11  15         0       0     not useful  exact match
+5       c   a     1   5         0       0         useful  exact match
+6       c   b    17  21         0       0         useful  exact match
+7       c   b    22  26         0       0     not useful  exact match
 
 [[2]]
 ```

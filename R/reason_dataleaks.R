@@ -59,8 +59,8 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
       s1.section <- s1[(s1length-hh):s1length]
       s2.section <- s2[df2$start[i]: df2$end[i]]
       dist <- s1.section - s2.section
-      dist.mean[i] <- mean(dist)
-      dist.sd[i] <- sd(dist)
+      dist.mean[i] <- round(mean(dist), 1)
+      dist.sd[i] <- round(sd(dist), 1)
 
 
     }
