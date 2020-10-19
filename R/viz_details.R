@@ -6,12 +6,12 @@
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @importFrom dplyr left_join
-#' @importFrom stats filter
 #' @importFrom cowplot plot_grid
 #' @importFrom dplyr select
+#' @importFrom dplyr filter
 #' @importFrom tidyr separate
 #' @importFrom tidyr expand
-#' @importFrom viridis scale_fill_viridis_d
+#' @importFrom ggplot2 scale_fill_viridis_d
 #' @return  matrix visualizing the output
 #' @export
 viz_details <- function(finddataleaksout, reasondataleaksout){
@@ -38,7 +38,7 @@ viz_details <- function(finddataleaksout, reasondataleaksout){
   df3 <- df3 %>% tidyr::expand(series1, .id)
   df2 <- complete(df2, df3)
 
-  reasondataleaksout2 <- reasondataleaksout %>% stats::filter(is.useful.leak=="useful")
+  reasondataleaksout2 <- reasondataleaksout %>% dplyr::filter(is.useful.leak=="useful")
 
   t <- dplyr::left_join(df2, reasondataleaksout2)
 

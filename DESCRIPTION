@@ -14,15 +14,18 @@ Depends:
     R (>= 4.0.0)
 Imports:
         stats,
-        tidyverse,
-        plyr,
+        tibble (>= 1.4.1),
+        ggplot2 (>= 3.0.0),
+        dplyr (>= 1.0.0),
+        tidyr (>= 1.1.0),
         slider,
-        tibble, 
         purrr,
-        magrittr,
-        viridis,
+        magrittr (>= 1.5),
+        viridis (>= 0.5.1),
+        utils,
         viridisLite,
-        cowplot
+        cowplot,
+        plyr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
@@ -32,8 +35,5 @@ Suggests:
     repmis,
     knitr,
     rmarkdown,
-    ggplot2,
-    tidyr,
-    dplyr,
     Mcomp,
     GGally

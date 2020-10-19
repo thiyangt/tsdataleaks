@@ -6,7 +6,7 @@
 #' @importFrom  tibble rownames_to_column
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
-#' @importFrom stats filter, sd
+#' @importFrom stats  sd
 #' @importFrom dplyr select
 #' @return  matrix visualizing the output
 #' @export
