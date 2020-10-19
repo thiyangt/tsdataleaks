@@ -12,8 +12,8 @@ viz_dataleaks <- function(finddataleaksout){
    return(finddataleaksout)}
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
-  df <- tibble::rownames_to_column(leaksdf, "Series1")
-  df2 <- df %>% tidyr::separate(Series1, c("series1", "N"))
+  df <- tibble::rownames_to_column(leaksdf, "rname")
+  df2 <- df %>% tidyr::separate(rname, c("series1", "N"))
   df2 <- df2 %>% dplyr::select(c("series1", ".id"))
   # Count the combinations considerting the columns series1 and .id
   names(df2) <- make.names(names(df2))

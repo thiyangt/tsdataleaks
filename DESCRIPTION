@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ttalagal@sjp.ac.lk",
            comment = c(ORCID = "0000-0002-0656-9789"))
-Description: Data leaks.
+Description: Forecasting competitions are of increasing importance as a mean to learn best practices and gain knowledge. Data leakage is one of the most common issues that can often be found in competitions. Data leaks can happen when the training data contains information about the test data. For example: randomly chosen blocks of time series are concatenated to form a new time series, scale-shifts, repeating patterns in time series,  white noise is added in the original time series to form a new time series, etc.  'tsdataleaks' package can be used to detect data leakages in a collection of  time series.
 License: GPL-3
 Depends:
     R (>= 4.0.0)
@@ -21,7 +21,18 @@ Imports:
         purrr,
         magrittr,
         viridis,
-        viridisLite
+        viridisLite,
+        cowplot
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat (>= 2.1.0),
+    covr,
+    repmis,
+    knitr,
+    rmarkdown,
+    ggplot2,
+    tidyr,
+    Mcomp,
+    GGally

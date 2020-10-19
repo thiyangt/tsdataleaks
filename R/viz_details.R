@@ -1,9 +1,17 @@
 #' Correlation calculation based on rolling window with overlapping observations.
 #'
 #' @param finddataleaksout list, the output generated from find_dataleaks function
+#' @param reasondataleaksout dataframe, output generated from reason_dataleaks function
 #' @importFrom  tibble rownames_to_column
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
+#' @importFrom dplyr left_join
+#' @importFrom stats filter
+#' @importFrom cowplot plot_grid
+#' @importFrom dplyr select
+#' @importFrom tidyr separate
+#' @importFrom tidyr expand
+#' @importFrom viridis scale_fill_viridis_d
 #' @return  matrix visualizing the output
 #' @export
 viz_details <- function(finddataleaksout, reasondataleaksout){
@@ -12,8 +20,8 @@ viz_details <- function(finddataleaksout, reasondataleaksout){
    return(finddataleaksout)}
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
-  df <- tibble::rownames_to_column(leaksdf, "Series1")
-  df2 <- df %>% tidyr::separate(Series1, c("series1", "N"))
+  df <- tibble::rownames_to_column(leaksdf, "rname")
+  df2 <- df %>% tidyr::separate(rname, c("series1", "N"))
   df2 <- df2 %>% dplyr::select(c("series1", ".id"))
   # Count the combinations considerting the columns series1 and .id
   names(df2) <- make.names(names(df2))
@@ -30,9 +38,9 @@ viz_details <- function(finddataleaksout, reasondataleaksout){
   df3 <- df3 %>% tidyr::expand(series1, .id)
   df2 <- complete(df2, df3)
 
-  reasondataleaksout2 <- reasondataleaksout %>% filter(is.useful.leak=="useful")
+  reasondataleaksout2 <- reasondataleaksout %>% stats::filter(is.useful.leak=="useful")
 
-  t <- left_join(df2, reasondataleaksout2)
+  t <- dplyr::left_join(df2, reasondataleaksout2)
 
   #useful <- reasondataleaksout %>% filter(is.useful.leak=="useful")
  # notuseful <- reasondataleaksout %>% filter(is.useful.leak=="not useful")

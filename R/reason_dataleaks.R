@@ -6,6 +6,7 @@
 #' @importFrom  tibble rownames_to_column
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
+#' @importFrom stats filter, sd
 #' @return  matrix visualizing the output
 #' @export
 reason_dataleaks <- function(lstx, finddataleaksout, h){
@@ -14,8 +15,8 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
    return(finddataleaksout)}
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
-  df <- tibble::rownames_to_column(leaksdf, "Series1")
-  df2 <- df %>% tidyr::separate(Series1, c("series1", "N"))
+  df <- tibble::rownames_to_column(leaksdf, "rname")
+  df2 <- df %>% tidyr::separate(rname, c("series1", "N"))
   df2 <- df2 %>% dplyr::select(c("series1", ".id", "start", "end"))
   ndf2 <- dim(df2)[1]
   dist.mean <- numeric(ndf2)
@@ -36,7 +37,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
     s2.section <- s2[df2$start[i]: df2$end[i]]
     dist <- s1.section - s2.section
     dist.mean[i] <- mean(dist)
-    dist.sd[i] <- sd(dist)
+    dist.sd[i] <- stats::sd(dist)
 
 
   }
