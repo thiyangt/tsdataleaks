@@ -86,7 +86,49 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
  # g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason")) +
 
   #df2 <- df2 %>% filter(is.useful.leak=="useful")
-    df2
+  #  df2
+
+  # Visualisation of reasons
+
+  leaksdf <- do.call(rbind.data.frame, finddataleaksout)
+  df <- tibble::rownames_to_column(leaksdf, "rname")
+  df3 <- df %>% tidyr::separate(rname, c("series1", "N"))
+  df3 <- df3 %>% dplyr::select(c("series1", ".id"))
+  # Count the combinations considerting the columns series1 and .id
+  names(df3) <- make.names(names(df3))
+
+
+
+  df3 <- df3 %>%
+    group_by(.dots=names(df3)) %>%
+    summarise(count= n())
+
+  alllevels <- levels(as.factor(c(df3$series1, df3$.id)))
+  df4 <- data.frame(series1=alllevels, .id=alllevels)
+
+  df4 <- df4 %>% tidyr::expand(series1, .id)
+  df3 <- complete(df3, df4)
+
+  reasondataleaksout2 <- df2 %>% dplyr::filter(is.useful.leak=="useful")
+
+  t <- dplyr::left_join(df3, reasondataleaksout2)
+
+  #useful <- reasondataleaksout %>% filter(is.useful.leak=="useful")
+  # notuseful <- reasondataleaksout %>% filter(is.useful.leak=="not useful")
+  #t2 <- t[rowSums(is.na(t)) > 0,]
+
+
+  g1 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= is.useful.leak)) +
+    geom_tile(colour = "black", size=0.25) +
+    scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3"),  na.value = "white") +
+    labs(x = "Matching series", y ="Series to forecast")
+  g2 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= reason)) +
+    geom_tile(colour = "black", size=0.25) +  scale_fill_viridis_d(option = "plasma", na.value="white") +
+    labs(x = "Matching series", y ="Series to forecast")
+  g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason"))
+
+    list(df2, g3)
+    #return(g3)
 
 }
 #' @examples

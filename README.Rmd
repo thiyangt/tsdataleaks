@@ -80,17 +80,15 @@ Interpretation: The first element in the list means the last 5 observations of t
 viz_dataleaks(f1)
 ```
 
-## `reason_dataleaks`: Display the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition
+## `reason_dataleaks`
+
+Display the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition
 
 ```{r, comment=NA, message=FALSE, warning=FALSE}
 r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 r1
 ```
 
-## `viz_details`: Visualize usefulness and reasons for data leaks
 
 
-```{r, comment=NA, message=FALSE, warning=FALSE, eval=FALSE}
-viz_details(f1, r1)
-```
 

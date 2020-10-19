@@ -109,11 +109,15 @@ viz_dataleaks(f1)
 3   b    22  26
 ```
 
-## `reason_dataleaks`: Display the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition
+## `reason_dataleaks`
+
+Display the reasons for data leaks and evaluate usefulness of data leaks
+towards the winning of the competition
 
 ``` r
 r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 r1
+[[1]]
   series1 .id start end dist_mean      dist_sd is.useful.leak      reason
 1       a   b     2   6        -8 4.440892e-16         useful Do not know
 2       b   a     1   5         0 0.000000e+00         useful exact match
@@ -122,10 +126,8 @@ r1
 5       c   a     1   5         0 0.000000e+00         useful exact match
 6       c   b    17  21         0 0.000000e+00         useful exact match
 7       c   b    22  26         0 0.000000e+00     not useful exact match
+
+[[2]]
 ```
 
-## `viz_details`: Visualize usefulness and reasons for data leaks
-
-``` r
-viz_details(f1, r1)
-```
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
