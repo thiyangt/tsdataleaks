@@ -3,9 +3,8 @@
 
 # tsdataleaks
 
-<!-- badges: start -->
-
-<!-- badges: end -->
+![Build
+Status](https://travis-ci.org/thiyangt/tsdataleaks.svg?branch=master)
 
 R Package for detecting data leakages in time series forecasting
 competitions.
