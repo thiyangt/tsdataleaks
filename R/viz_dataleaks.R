@@ -4,6 +4,7 @@
 #' @importFrom  tibble rownames_to_column
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
+#' @importFrom dplyr select
 #' @return  matrix visualizing the output
 #' @export
 viz_dataleaks <- function(finddataleaksout){

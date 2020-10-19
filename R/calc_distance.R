@@ -6,6 +6,8 @@
 #' @importFrom  tibble rownames_to_column
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
+#' @importFrom dplyr select
+#' @importFrom dplyr mutate
 #' @return  matrix visualizing the output
 #' @export
 reason_dataleaks <- function(lstx, finddataleaksout, h){

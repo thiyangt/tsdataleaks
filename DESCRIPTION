@@ -34,5 +34,6 @@ Suggests:
     rmarkdown,
     ggplot2,
     tidyr,
+    dplyr,
     Mcomp,
     GGally

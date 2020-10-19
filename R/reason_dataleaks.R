@@ -7,6 +7,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @importFrom stats filter, sd
+#' @importFrom dplyr select
 #' @return  matrix visualizing the output
 #' @export
 reason_dataleaks <- function(lstx, finddataleaksout, h){
