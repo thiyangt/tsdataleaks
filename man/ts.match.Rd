@@ -4,7 +4,7 @@
 \alias{ts.match}
 \title{Correlation calculation based on rolling window with overlapping observations.}
 \usage{
-ts.match(x, y, cutoff = 1)
+ts.match(x, y, cutoff = 1, boost = TRUE)
 }
 \arguments{
 \item{x}{time series}
@@ -12,6 +12,8 @@ ts.match(x, y, cutoff = 1)
 \item{y}{subsection of the time series to map}
 
 \item{cutoff}{benchmark value for corr, default 1}
+
+\item{boost}{Logical value indicating whether to boost performance by using RCpp. For small datasets setting boost=TRUE would not be efficient.}
 }
 \value{
 Pearson's correlation coefficient between \code{x} and \code{y}
