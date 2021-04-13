@@ -2,7 +2,7 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^data_pretrained_fforms$
-^logo$
+^hex$
 ^cran-comments\.md$
 ^\.travis\.yml$
 ^revdep$

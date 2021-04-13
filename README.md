@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<img src="hex/hexsticker.png" align="right" height="200"/>
+
 # tsdataleaks
 
 ![Build
