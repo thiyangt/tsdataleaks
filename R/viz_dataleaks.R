@@ -5,6 +5,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @importFrom dplyr select
+#' @importFrom dplyr summarise
 #' @return  matrix visualizing the output
 #' @export
 viz_dataleaks <- function(finddataleaksout){
@@ -23,7 +24,7 @@ viz_dataleaks <- function(finddataleaksout){
 
   df2 <- df2 %>%
     group_by(.dots=names(df2)) %>%
-    summarise(count= n())
+    dplyr::summarise(count= n())
 
   alllevels <- levels(as.factor(c(df2$series1, df2$.id)))
   df3 <- data.frame(series1=alllevels, .id=alllevels)

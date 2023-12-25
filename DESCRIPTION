@@ -1,13 +1,14 @@
 Package: tsdataleaks
 Type: Package
 Title: Exploit data leakages in time series forecasting competitions
-Version: 0.1.0
-Authors@R: 
+Version: 1.1.0
+Authors@R: c(
     person(given = "Thiyanga S",
            family = "Talagala",
            role = c("aut", "cre"),
            email = "ttalagal@sjp.ac.lk",
-           comment = c(ORCID = "0000-0002-0656-9789"))
+           comment = c(ORCID = "0000-0002-0656-9789")),
+            person("Janith C.", "Wanniarachchi", role = c("aut")))
 Description: Forecasting competitions are of increasing importance as a mean to learn best practices and gain knowledge. Data leakage is one of the most common issues that can often be found in competitions. Data leaks can happen when the training data contains information about the test data. For example: randomly chosen blocks of time series are concatenated to form a new time series, scale-shifts, repeating patterns in time series,  white noise is added in the original time series to form a new time series, etc.  'tsdataleaks' package can be used to detect data leakages in a collection of  time series.
 License: GPL-3
 LinkingTo: Rcpp
@@ -22,15 +23,13 @@ Imports:
     slider,
     purrr,
     magrittr (>= 1.5),
-    viridis (>= 0.5.1),
     utils,
-    viridisLite,
     cowplot,
     plyr,
     Rcpp
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0),
     covr,
