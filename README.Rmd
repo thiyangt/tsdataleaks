@@ -53,12 +53,14 @@ To demonstrate the package functionalities, I created a small dataset with 4 tim
 
 ```{r example, comment=NA}
 set.seed(2020)
-a = rnorm(15)
+a <- rnorm(15)
+d <- rnorm(10)
 lst <- list(
   a = a,
   b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
   c = c(rnorm(10), a[1:5]),
-  d = rnorm(10) )
+  d = d,
+  e = d)
 
 
 ```

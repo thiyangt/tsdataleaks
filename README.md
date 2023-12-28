@@ -41,12 +41,14 @@ with 4 time series.
 
 ``` r
 set.seed(2020)
-a = rnorm(15)
+a <- rnorm(15)
+d <- rnorm(10)
 lst <- list(
   a = a,
   b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
   c = c(rnorm(10), a[1:5]),
-  d = rnorm(10) )
+  d = d,
+  e = d)
 ```
 
 ## `find_dataleaks`: Exploit data leaks
@@ -74,6 +76,14 @@ $c
 1   a     1   5
 2   b    17  21
 3   b    22  26
+
+$d
+  .id start end
+5   e     6  10
+
+$e
+  .id start end
+4   d     6  10
 ```
 
 Interpretation: The first element in the list means the last 5
@@ -107,6 +117,14 @@ viz_dataleaks(f1)
     2   b    17  21
     3   b    22  26
 
+    [[2]]$d
+      .id start end
+    5   e     6  10
+
+    [[2]]$e
+      .id start end
+    4   d     6  10
+
 ## `reason_dataleaks`
 
 Display the reasons for data leaks and evaluate usefulness of data leaks
@@ -124,6 +142,8 @@ r1
 5       c   a     1   5         0       0         useful  exact match
 6       c   b    17  21         0       0         useful  exact match
 7       c   b    22  26         0       0     not useful  exact match
+8       d   e     6  10         0       0     not useful  exact match
+9       e   d     6  10         0       0     not useful  exact match
 
 [[2]]
 ```
