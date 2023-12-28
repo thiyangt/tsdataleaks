@@ -121,7 +121,8 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
 
   g1 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= is.useful.leak)) +
     geom_tile(colour = "black", size=0.25) +
-    scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3"),  na.value = "white") +
+    scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3"),
+                      na.translate = F) +
     labs(x = "Matching series", y ="Series to forecast")
   g2 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= reason)) +
     geom_tile(colour = "black", size=0.25) +  scale_fill_viridis_d(option = "plasma", na.value="white") +

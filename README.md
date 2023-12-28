@@ -5,12 +5,6 @@
 
 # tsdataleaks
 
-<figure>
-<img src="https://travis-ci.org/thiyangt/tsdataleaks.svg?branch=master"
-alt="Build Status" />
-<figcaption aria-hidden="true">Build Status</figcaption>
-</figure>
-
 R Package for detecting data leakages in time series forecasting
 competitions.
 
