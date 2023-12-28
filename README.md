@@ -5,8 +5,11 @@
 
 # tsdataleaks
 
-![Build
-Status](https://travis-ci.org/thiyangt/tsdataleaks.svg?branch=master)
+<figure>
+<img src="https://travis-ci.org/thiyangt/tsdataleaks.svg?branch=master"
+alt="Build Status" />
+<figcaption aria-hidden="true">Build Status</figcaption>
+</figure>
 
 R Package for detecting data leakages in time series forecasting
 competitions.
@@ -16,12 +19,10 @@ competitions.
 <!--You can install the released version of tsdataleaks from -->
 <!-- [CRAN](https://CRAN.R-project.org) with: -->
 <!--
-
-``` r
+&#10;``` r
 install.packages("tsdataleaks")
 ```
-
--->
+&#10;-->
 
 The development version from [GitHub](https://github.com/) with:
 
@@ -83,7 +84,28 @@ observarion from 2 to 6.
 
 ``` r
 viz_dataleaks(f1)
+[[1]]
 ```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+
+    [[2]]
+    [[2]]$a
+      .id start end
+    2   b     2   6
+
+    [[2]]$b
+      .id start end
+    1   a     1   5
+    2   b    17  21
+    4   c    11  15
+
+    [[2]]$c
+      .id start end
+    1   a     1   5
+    2   b    17  21
+    3   b    22  26
 
 ## `reason_dataleaks`
 
@@ -93,4 +115,17 @@ towards the winning of the competition
 ``` r
 r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 r1
+[[1]]
+  series1 .id start end dist_mean dist_sd is.useful.leak       reason
+1       a   b     2   6        -8       0         useful add constant
+2       b   a     1   5         0       0         useful  exact match
+3       b   b    17  21         0       0         useful  exact match
+4       b   c    11  15         0       0     not useful  exact match
+5       c   a     1   5         0       0         useful  exact match
+6       c   b    17  21         0       0         useful  exact match
+7       c   b    22  26         0       0     not useful  exact match
+
+[[2]]
 ```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
