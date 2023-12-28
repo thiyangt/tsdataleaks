@@ -8,6 +8,7 @@
 #' @importFrom ggplot2 ggplot
 #' @importFrom stats  sd
 #' @importFrom dplyr select
+#' @importFrom dplyr full_join
 #' @return  matrix visualizing the output
 #' @export
 reason_dataleaks <- function(lstx, finddataleaksout, h){
@@ -107,7 +108,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   df4 <- data.frame(series1=alllevels, .id=alllevels)
 
   df4 <- df4 %>% tidyr::expand(series1, .id)
-  df3 <- complete(df3, df4)
+  df3 <- dplyr::full_join(df3, df4)
 
   reasondataleaksout2 <- df2 %>% dplyr::filter(is.useful.leak=="useful")
 

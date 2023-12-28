@@ -6,6 +6,7 @@
 #' @importFrom ggplot2 ggplot
 #' @importFrom dplyr select
 #' @importFrom dplyr summarise
+#' @importFrom dplyr full_join
 #' @return  matrix visualizing the output
 #' @export
 viz_dataleaks <- function(finddataleaksout){
@@ -30,7 +31,7 @@ viz_dataleaks <- function(finddataleaksout){
   df3 <- data.frame(series1=alllevels, .id=alllevels)
 
   df3 <- df3 %>% tidyr::expand(series1, .id)
-  df2 <- complete(df2, df3)
+  df2 <- dplyr::full_join(df2, df3)
 
   list(
   ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= count)) +

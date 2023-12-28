@@ -88,7 +88,7 @@ viz_dataleaks(f1)
 
 Display the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition
 
-```{r, comment=NA, message=FALSE, warning=FALSE, eval=FALSE}
+```{r, comment=NA, message=FALSE, warning=FALSE}
 r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 r1
 ```
