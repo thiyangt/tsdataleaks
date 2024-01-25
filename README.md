@@ -30,8 +30,8 @@ library(tsdataleaks)
 
 This is a basic example which shows you how to solve a common problem:
 
-To demonstrate the package functionalities, I created a small dataset
-with 4 time series.
+To demonstrate the package functions, I created a small data set with 4
+time series.
 
 ``` r
 set.seed(2020)
