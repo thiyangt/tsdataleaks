@@ -45,7 +45,6 @@ library(tsdataleaks)
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
 
 To demonstrate the package functions, I created a small data set with 4 time series. 
 
