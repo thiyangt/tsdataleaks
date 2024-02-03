@@ -24,22 +24,99 @@ Forecasting competitions are of increasing importance as a mean to learn best pr
 # Statement of Need
 
 
-Time series forecasting competitions have played a significant role in the advancement of forecasting practices. Typically, in forecasting competitions, a collection of time series is given to the competitors, and then the competitors submit the forecasts for the required test period of each time series. During the competition period only the training set of each time series is given to the public, and the test set is kept private from the public. Finally, competition organizers evaluate the forecast accuracy comparing the test set of each series and submitted forecasts from the different competitiors. This helps to identify new forecasting techiniques.
+Time series forecasting competitions have played a significant role in the advancement of forecasting practices. Typically, in forecasting competitions, a collection of time series is given to the competitors, and then the competitors submit the forecasts for the required test period of each time series. During the competition period only the training set of each time series is given to the public, and the test set is kept private from the public. Finally, competition organizers evaluate the forecast accuracy comparing the test set of each series and submitted forecasts by the competitors. Forecasting competitions helps to identifying novel methods and facilitating their performance comparison against existing state-of-the-art forecasting techniques [@hyndman2020brief].
 
 
 Data leakage occur when the training period of the time series includes test period data before officially release the test period of the time series.  This idea is illustrated in \autoref{fig:fig1}. A and B are two time series. The latter segment of the training set and the subsequent test set within the (B) series is derived from a training segment inherent to series (A). This type of data leak could occur when a randomly chosen blocks of time series are concatenated to form a new time series. 
 
-![An example of a time series data leak. (A) and (B) are two time series. The purple verticle line separates the training and test parts of the series.  The latter segment of the training set and test set of the (B) series comes from a training segment of series (A).\label{fig:fig1}](figure1.png)
+![An example of a time series data leak. (A) and (B) are two time series. The purple verticle line separates the training and test parts of the series.  The latter segment of the training set and test set of the (B) series comes from a training segment of series (A).\label{fig:fig1}](figure1.png){height=30%}
 
-Competitions with data leaks will not be able to reach the original purpose of their competitions. By exploiting data leakage competitors can obtain a top rank in the leader board. Such models look highly accurate within the competition environment but becomes inaccurate when applying the to a data set outside the competition environment. There is an increasing need to examine the potential data leaks in time series before the release of data to public. The tsdataleaks package is designed to identify data leaks in time series.
-
+Competitions with data leaks will not be able to reach the original purpose. By exploiting data leakage competitors can obtain a top rank in the leader board. Such models look highly accurate within the competition environment but becomes inaccurate when applying the to a data set outside the competition environment. There is an increasing need to examine the potential data leaks in time series before the release of data to public. The tsdataleaks package is designed to identify data leaks in time series.
 
 
 # State of the Field in R
 
-# Features
 
-The Sections *** demonstrate the utility of these packages as well as walk two examples.
+As of the latest information available on the Comprehensive R Archive Network (CRAN) Task View: Time Series Analysis [@ctv], there is no package available for detecting data leakages.
 
-# Reproducibility
+# Algorithm
+
+The algorithm operates as follows: it selects the final segment of the training portion from each time series in the collection, moves through all of the time series by one lag, and calculates the Pearson's correlation coefficient. Hence, the input to the algorithm are: i) the time series collection, ii) segment length, and iii) cut of value for the correlation coefficient serve as the algorithm's inputs. The algorithm returns the starting and end index of  the segments that match each time series' training part of the last segment. \autoref{fig:fig2} illustrates the first iteration of the algorithm and a intermediate step of the algorithm is shown in \autoref{fig:fig21}.
+
+![Visualization of the first iteration of the algorithm.The lst segment of the training part of the first series is coloured in purple. As the first step of the algorithm it is matched with the green section of the series 1.\label{fig:fig2}](figure2.png){height=20%}
+
+![Intermediate step of the algorithm: Identification of potential data leak.\label{fig:fig21}](fig2.png){height=20%}
+
+# Usage
+
+## Installation
+
+The package tsdataleaks is available on [GitHub](https://github.com/thiyangt/tsdataleaks) and can be installed and loaded into the R session using:
+
+```r
+devtools::install_github("thiyangt/tsdataleaks")
+library(tsdataleaks)
+```
+
+## Functionality
+
+There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks` and iii) `reason_dataleaks`.
+
+To demonstrate the package functions, I created a small data set with 4 time series. 
+
+```r
+set.seed(2020)
+a <- rnorm(15)
+d <- rnorm(10)
+lst <- list(
+  a = a,
+  b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
+  c = c(rnorm(10), a[1:5]),
+  d = d,
+  e = d)
+```
+
+The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm. 
+
+```r
+f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1) 
+f1
+```
+
+The output of the above function is shown in \autoref{fig:fig3}.
+
+![Output of find_dataleaks\label{fig:fig3}](figure3.png){height=30%}
+
+
+
+
+Next `viz_dataleaks` function visualize the results obtained in `find_dataleaks` for easy understanding as shown in \autoref{fig:fig4}
+
+```r
+viz_dataleaks(f1)
+```
+
+![Output of viz_dataleaks\label{fig:fig4}](figure4.png){height=20%}
+
+
+Finally, `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The text output of the `reason_dataleaks` shown in \autoref{fig:fig5}. The visualization is available at https://github.com/thiyangt/tsdataleaks. For example, according to the 2nd row in the output, series b last part correlates with series a index 2 to 6. Hence, series `a` segment indices 7-12  can be the  series b remaining part. Hence, this identification is an useful identification. Furthermore, according to the fourth row of the same output series b last part correlates with series c segment with indices 11-15. However, we do not have observations from 16 on wards for the series c. Hence, it is not a useful identification in winning the forecasting competition. 
+
+![The text output of viz_dataleaks\label{fig:fig5}](figure5.png){height=50%}
+
+# Appication to the M1 competition data
+
+```r
+library(Mcomp)
+data("M1")
+M1Y <- subset(M1, "yearly")
+M1Y_x <- lapply(M1Y, function(temp){temp$x})
+m1y_f1 <- find_dataleaks(M1Y_x, h=6, cutoff = 1)
+m1y_f1
+```
+
+# Conclusion
+
+The new open source R package described in this paper enable, i) explot data leakages, ii) identify the reasons for data leakage as exact match or add a constant, iii) determining whether the data leakages identified are useful in winning the forecast competition and iv) visualise the results. 
+
+# References
 
