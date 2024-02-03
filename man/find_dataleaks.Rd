@@ -4,7 +4,7 @@
 \alias{find_dataleaks}
 \title{Correlation calculation based on rolling window with overlapping observations.}
 \usage{
-find_dataleaks(lstx, h, cutoff = 1, boost = TRUE)
+find_dataleaks(lstx, h, cutoff = 1)
 }
 \arguments{
 \item{lstx}{list of time series}
@@ -12,8 +12,6 @@ find_dataleaks(lstx, h, cutoff = 1, boost = TRUE)
 \item{h}{length of forecast horizon}
 
 \item{cutoff}{benchmark value for corr, default 1}
-
-\item{boost}{Logical value indicating whether to boost performance by using RCpp. For small datasets setting boost=TRUE would not be efficient.}
 }
 \value{
 list of matching quantities

@@ -4,11 +4,11 @@
 #' @param finddataleaksout list, the output generated from find_dataleaks function
 #' @param h length of the window size
 #' @importFrom  tibble rownames_to_column
-#' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @importFrom stats  sd
 #' @importFrom dplyr select
 #' @importFrom dplyr full_join
+#' @importFrom dplyr group_by_at
 #' @return  matrix visualizing the output
 #' @export
 reason_dataleaks <- function(lstx, finddataleaksout, h){
@@ -18,8 +18,8 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
   df <- tibble::rownames_to_column(leaksdf, "rname")
-  df2 <- df %>% tidyr::separate(rname, c("series1", "N"))
-  df2 <- df2 %>% dplyr::select(c("series1", ".id", "start", "end"))
+  df2 <- df |> tidyr::separate(rname, c("series1", "N"))
+  df2 <- df2 |> dplyr::select(c("series1", ".id", "start", "end"))
   ndf2 <- dim(df2)[1]
   dist.mean <- numeric(ndf2)
   dist.sd <- numeric(ndf2)
@@ -74,7 +74,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   df2$dist_sd <- dist.sd
   df2$is.useful.leak <- is.useful.leak
 
-  df2 <- df2 %>%
+  df2 <- df2 |>
     dplyr::mutate(reason = ifelse(dist_mean == 0 & dist_sd == 0 , "exact match",
                        ifelse(dist_mean != 0 & dist_sd == 0 , "add constant", "Do not know")))
 
@@ -93,24 +93,24 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
   df <- tibble::rownames_to_column(leaksdf, "rname")
-  df3 <- df %>% tidyr::separate(rname, c("series1", "N"))
-  df3 <- df3 %>% dplyr::select(c("series1", ".id"))
+  df3 <- df |> tidyr::separate(rname, c("series1", "N"))
+  df3 <- df3 |> dplyr::select(c("series1", ".id"))
   # Count the combinations considerting the columns series1 and .id
   names(df3) <- make.names(names(df3))
 
 
 
-  df3 <- df3 %>%
-    group_by(.dots=names(df3)) %>%
+  df3 <- df3 |>
+    group_by_at(names(df3)) |>
     summarise(count= n())
 
   alllevels <- levels(as.factor(c(df3$series1, df3$.id)))
   df4 <- data.frame(series1=alllevels, .id=alllevels)
 
-  df4 <- df4 %>% tidyr::expand(series1, .id)
+  df4 <- df4 |> tidyr::expand(series1, .id)
   df3 <- dplyr::full_join(df3, df4)
 
-  reasondataleaksout2 <- df2 %>% dplyr::filter(is.useful.leak=="useful")
+  reasondataleaksout2 <- df2 |> dplyr::filter(is.useful.leak=="useful")
 
   t <- dplyr::left_join(df3, reasondataleaksout2)
 
@@ -120,13 +120,13 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
 
 
   g1 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= is.useful.leak)) +
-    geom_tile(colour = "black", size=0.25) +
+    geom_tile(colour = "black", linewidth=0.25) +
     scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3"),
-                      na.translate = F) +
+                      na.translate = F) +theme(aspect.ratio = 1) +
     labs(x = "Matching series", y ="Series to forecast")
   g2 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= reason)) +
-    geom_tile(colour = "black", size=0.25) +  scale_fill_viridis_d(option = "plasma", na.value="white") +
-    labs(x = "Matching series", y ="Series to forecast")
+    geom_tile(colour = "black", linewidth=0.25) +  scale_fill_viridis_d(option = "plasma", na.value="white") +
+    labs(x = "Matching series", y ="Series to forecast") + theme(aspect.ratio = 1)
   g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason"))
 
     list(df2, g3)

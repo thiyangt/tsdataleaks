@@ -4,7 +4,6 @@
 #' @param finddataleaksout list, the output generated from find_dataleaks function
 #' @param h length of the window size
 #' @importFrom  tibble rownames_to_column
-#' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @importFrom dplyr select
 #' @importFrom dplyr mutate
@@ -17,8 +16,8 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
 
   leaksdf <- do.call(rbind.data.frame, finddataleaksout)
   df <- tibble::rownames_to_column(leaksdf, "Series1")
-  df2 <- df %>% tidyr::separate(Series1, c("series1", "N"))
-  df2 <- df2 %>% dplyr::select(c("series1", ".id", "start", "end"))
+  df2 <- df |> tidyr::separate(Series1, c("series1", "N"))
+  df2 <- df2 |> dplyr::select(c("series1", ".id", "start", "end"))
   ndf2 <- dim(df2)[1]
   dist.mean <- numeric(ndf2)
   dist.sd <- numeric(ndf2)
@@ -73,7 +72,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   df2$dist_sd <- dist.sd
   df2$is.useful.leak <- is.useful.leak
 
-  df2 <- df2 %>%
+  df2 <- df2 |>
     dplyr::mutate(reason = ifelse(dist_mean == 0 & dist_sd == 0 , "exact match",
                        ifelse(dist_mean != 0 & dist_sd == 0 , "add constant", "Do not know")))
 

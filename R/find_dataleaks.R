@@ -3,17 +3,13 @@
 #' @param lstx list of time series
 #' @param h length of forecast horizon
 #' @param cutoff benchmark value for corr, default 1
-#' @param boost Logical value indicating whether to boost performance by using RCpp. For small datasets setting boost=TRUE would not be efficient.
 #' @importFrom  utils tail
 #' @importFrom plyr ldply
 #' @importFrom purrr map
 #' @importFrom  stats na.omit
-#' @useDynLib tsdataleaks
-#' @importFrom Rcpp sourceCpp
 #' @return list of matching quantities
 #' @export
-find_dataleaks <- function(lstx, h, cutoff=1,boost=TRUE){
-  Rcpp::sourceCpp("src/corw.cpp")
+find_dataleaks <- function(lstx, h, cutoff=1){
   n <- length(lstx)
   if (is.null(names(lstx)) == TRUE){names(lstx) <- 1:n} # This is important when displying the final results
   result <- list()
@@ -21,9 +17,10 @@ find_dataleaks <- function(lstx, h, cutoff=1,boost=TRUE){
   for (i in 1:n){
 
     y = utils::tail(lstx[[i]], h)
-    result[[i]] <- purrr::map(lstx, ts.match, y=y,boost=boost)
+    result[[i]] <- purrr::map(lstx, ts.match, y=y)
 
   }
+
 
   result.list <- purrr::map(result, plyr::ldply, data.frame)
   n.result.list <- length(result.list)
@@ -52,7 +49,7 @@ find_dataleaks <- function(lstx, h, cutoff=1,boost=TRUE){
 
   for (i in 1: length(nonmissinglist)){
     nonmissinglist[[i]] <- nonmissinglist[[i]][-selfcalculationindex[[i]], ]
- }
+  }
 
 
   # Remove empty entries
