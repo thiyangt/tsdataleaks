@@ -1,0 +1,71 @@
+---
+title: "tsdataleaks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tsdataleaks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tsdataleaks)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(viridis)
+```
+
+
+
+To demonstrate the package functions, I created a small data set with 4 time series. 
+
+```{r example, comment=NA}
+set.seed(2020)
+a <- rnorm(15)
+d <- rnorm(10)
+lst <- list(
+  a = a,
+  b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
+  c = c(rnorm(10), a[1:5]),
+  d = d,
+  e = d)
+
+
+```
+
+
+## `find_dataleaks`: Exploit data leaks
+
+```{r, comment=NA, message=FALSE, warning=FALSE}
+# h - I assume test period length is 5 and took that as wind size, h.
+f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1) 
+f1
+```
+
+Interpretation: The first element in the list means the last 5 observations of the time series `a` correlates with time series `b` observarion from 2 to 6.
+
+## `viz_dataleaks`: Visualise the data leaks
+
+```{r, comment=NA, message=FALSE, warning=FALSE}
+viz_dataleaks(f1)
+```
+
+## `reason_dataleaks`
+
+Display the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition
+
+```{r, comment=NA, message=FALSE, warning=FALSE, fig.height=5, fig.width=10}
+r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
+r1
+```
+
+
+
+
