@@ -4,9 +4,9 @@
 \alias{reason_dataleaks}
 \title{Correlation calculation based on rolling window with overlapping observations.}
 \usage{
-reason_dataleaks(lstx, finddataleaksout, h)
+reason_dataleaks(lstx, finddataleaksout, h, ang = 0)
 
-reason_dataleaks(lstx, finddataleaksout, h)
+reason_dataleaks(lstx, finddataleaksout, h, ang = 0)
 }
 \arguments{
 \item{lstx}{list of time series}
@@ -14,6 +14,8 @@ reason_dataleaks(lstx, finddataleaksout, h)
 \item{finddataleaksout}{list, the output generated from find_dataleaks function}
 
 \item{h}{length of the window size}
+
+\item{ang}{angle at which the tick and axis labels should be displayed (default 0)}
 }
 \value{
 matrix visualizing the output

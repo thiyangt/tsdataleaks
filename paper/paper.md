@@ -24,7 +24,7 @@ Forecasting competitions are of increasing importance as a mean to learn best pr
 # Statement of Need
 
 
-Time series forecasting competitions have played a significant role in the advancement of forecasting practices. Typically, in forecasting competitions, a collection of time series is given to the competitors, and then the competitors submit the forecasts for the required test period of each time series. During the competition period only the training set of each time series is given to the public, and the test set is kept private from the public. Finally, competition organizers evaluate the forecast accuracy comparing the test set of each series and submitted forecasts by the competitors. Forecasting competitions helps to identifying novel methods and facilitating their performance comparison against existing state-of-the-art forecasting techniques [@hyndman2020brief].
+Time series forecasting competitions have played a significant role in the advancement of forecasting practices. Typically, in forecasting competitions, a collection of time series is given to the competitors, and then the competitors submit the forecasts for the required test period of each time series. During the competition period only the training set of each time series is given to the public, and the test set is kept private from the public. Finally, competition organizers evaluate the forecast accuracy comparing the test set of each series and submitted forecasts by the competitors. Forecasting competitions helps to identifying novel methods and facilitating their performance comparison against existing state-of-the-art forecasting techniques [@hyndman2020brief]. Further, from empirical evidence how to improve forecasting performance and advance the theory and practice of forecasting
 
 
 Data leakage occur when the training period of the time series includes test period data before officially release the test period of the time series.  This idea is illustrated in \autoref{fig:fig1}. A and B are two time series. The latter segment of the training set and the subsequent test set within the (B) series is derived from a training segment inherent to series (A). This type of data leak could occur when a randomly chosen blocks of time series are concatenated to form a new time series. 
@@ -64,7 +64,7 @@ The algorithm operates as follows: it selects the final segment of the training 
 | 3. *Return* the *matching_segments* list as the output.             |
 
 
- \autoref{fig:fig2} illustrates the first iteration of the algorithm and a intermediate step of the algorithm is shown in \autoref{fig:fig21}.
+ \autoref{fig:fig2} illustrates the first iteration of the algorithm. \autoref{fig:fig23} visualize the second iteration of the algorithm. An intermediate step of the algorithm is shown in \autoref{fig:fig21}.
 
 
 ![Visualization of the first iteration of the algorithm.The lst segment of the training part of the first series is coloured in purple. As the first step of the algorithm it is matched with the green section of the series 1 and compute the Pearson's correlation coefficient.\label{fig:fig2}](figure2.png){height=30%}

@@ -13,10 +13,12 @@ competitions.
 <!--You can install the released version of tsdataleaks from -->
 <!-- [CRAN](https://CRAN.R-project.org) with: -->
 <!--
-&#10;``` r
+
+``` r
 install.packages("tsdataleaks")
 ```
-&#10;-->
+
+-->
 
 The development version from [GitHub](https://github.com/) with:
 
@@ -136,16 +138,16 @@ r1
 7       c   b    22  26       1.7     2.6     not useful       -1
 8       d   e     6  10       0.0     0.0     not useful        1
 9       e   d     6  10       0.0     0.0     not useful        1
-          reason
-1   add constant
-2    exact match
-3    exact match
-4 multiply by -1
-5 multiply by -1
-6 multiply by -1
-7 multiply by -1
-8    exact match
-9    exact match
+                                     reason
+1                              add constant
+2                               exact match
+3                               exact match
+4 multiply by -1 or negative constant value
+5 multiply by -1 or negative constant value
+6 multiply by -1 or negative constant value
+7 multiply by -1 or negative constant value
+8                               exact match
+9                               exact match
 
 [[2]]
 ```
@@ -158,375 +160,10 @@ r1
 
 ``` r
 library(Mcomp)
-#> Loading required package: forecast
-#> Registered S3 method overwritten by 'quantmod':
-#>   method            from
-#>   as.zoo.data.frame zoo
 data("M1")
 M1Y <- subset(M1, "yearly")
 M1Y_x <- lapply(M1Y, function(temp){temp$x})
 m1y_f1 <- find_dataleaks(M1Y_x, h=6, cutoff = 1)
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
-
-#> Warning in stats::cor(x, y): the standard deviation is zero
 m1y_f1
 #> $YAF17
 #>     .id start end
@@ -559,9 +196,6 @@ m1y_f1
 
 ``` r
 viz_dataleaks(m1y_f1)
-#> Warning: Expected 2 pieces. Missing pieces filled with `NA` in 7 rows [1, 2, 3, 4, 5, 6,
-#> 7].
-#> Joining with `by = join_by(series1, .id)`
 #> [[1]]
 ```
 
@@ -598,22 +232,24 @@ viz_dataleaks(m1y_f1)
     #> 137 YAC15     6  11
 
 ``` r
-reason_dataleaks(M1Y_x, m1y_f1, h=6)
-#> Warning: Expected 2 pieces. Missing pieces filled with `NA` in 7 rows [1, 2, 3, 4, 5, 6,
-#> 7].
-#> Expected 2 pieces. Missing pieces filled with `NA` in 7 rows [1, 2, 3, 4, 5, 6,
-#> 7].
-#> Joining with `by = join_by(series1, .id)`
-#> Joining with `by = join_by(series1, .id)`
+reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 #> [[1]]
-#>   series1   .id start end dist_mean dist_sd is.useful.leak dist_cor      reason
-#> 1   YAF17  YAM6     9  14       5.4     0.4     not useful        1 Do not know
-#> 2    YAM6 YAF17    16  21      -5.4     0.4     not useful        1 Do not know
-#> 3   YAM28 YAI21    16  21       0.0     0.0     not useful        1 exact match
-#> 4    YAB3  YAM2    14  19       0.0     0.0         useful        1 exact match
-#> 5    YAB4  YAM1    15  20       0.0     0.0         useful        1 exact match
-#> 6   YAI21 YAM28    16  21       0.0     0.0     not useful        1 exact match
-#> 7   YAG29 YAC15     6  11  -36815.7  6159.2         useful        1 Do not know
+#>   series1   .id start end dist_mean dist_sd is.useful.leak dist_cor
+#> 1   YAF17  YAM6     9  14       5.4     0.4     not useful        1
+#> 2    YAM6 YAF17    16  21      -5.4     0.4     not useful        1
+#> 3   YAM28 YAI21    16  21       0.0     0.0     not useful        1
+#> 4    YAB3  YAM2    14  19       0.0     0.0         useful        1
+#> 5    YAB4  YAM1    15  20       0.0     0.0         useful        1
+#> 6   YAI21 YAM28    16  21       0.0     0.0     not useful        1
+#> 7   YAG29 YAC15     6  11  -36815.7  6159.2         useful        1
+#>                 reason
+#> 1 other transformation
+#> 2 other transformation
+#> 3          exact match
+#> 4          exact match
+#> 5          exact match
+#> 6          exact match
+#> 7 other transformation
 #> 
 #> [[2]]
 ```

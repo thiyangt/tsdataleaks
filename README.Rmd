@@ -97,7 +97,7 @@ r1
 
 ## M1 Competition - Yearly data
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(Mcomp)
 data("M1")
 M1Y <- subset(M1, "yearly")
@@ -106,10 +106,10 @@ m1y_f1 <- find_dataleaks(M1Y_x, h=6, cutoff = 1)
 m1y_f1
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 viz_dataleaks(m1y_f1)
 ```
 
-```{r}
-reason_dataleaks(M1Y_x, m1y_f1, h=6)
+```{r, warning=FALSE, message=FALSE}
+reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 ```

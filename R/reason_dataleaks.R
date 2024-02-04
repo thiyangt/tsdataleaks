@@ -3,6 +3,7 @@
 #' @param lstx list of time series
 #' @param finddataleaksout list, the output generated from find_dataleaks function
 #' @param h length of the window size
+#' @param ang angle at which the tick and axis labels should be displayed (default 0)
 #' @importFrom  tibble rownames_to_column
 #' @importFrom ggplot2 ggplot
 #' @importFrom stats  sd
@@ -11,7 +12,7 @@
 #' @importFrom dplyr group_by_at
 #' @return  matrix visualizing the output
 #' @export
-reason_dataleaks <- function(lstx, finddataleaksout, h){
+reason_dataleaks <- function(lstx, finddataleaksout, h, ang=0){
 
   if(length(finddataleaksout)==0){x <- readline("Empty list!\n(press enter to continue)")
    return(finddataleaksout)}
@@ -79,8 +80,10 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
 
   df2 <- df2 |>
     dplyr::mutate(reason = ifelse(dist_mean == 0 & dist_sd == 0 , "exact match",
-                           ifelse(dist_cor == -1, "multiply by -1",
-                       ifelse(dist_mean != 0 & dist_sd == 0 , "add constant", "Do not know"))))
+                           ifelse(dist_cor == -1, "multiply by -1 or negative constant value",
+                       ifelse(dist_mean != 0 & dist_sd == 0 , "add constant",
+                              ifelse(dist_mean != 0 & dist_sd != 0 , "other transformation",
+                                     "Do not know")))))
 
  # g1 <- ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= is.useful.leak)) +
  #   geom_tile(colour = "black", size=0.25) +
@@ -122,15 +125,26 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   # notuseful <- reasondataleaksout %>% filter(is.useful.leak=="not useful")
   #t2 <- t[rowSums(is.na(t)) > 0,]
 
+if (ang>0){
+  vj <- 0.5
+  hj <- 1
+} else {
+  vj <- 0
+  hj <- 0
+}
 
   g1 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= is.useful.leak)) +
     geom_tile(colour = "black", linewidth=0.25) +
     scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3"),
-                      na.translate = F) +theme(aspect.ratio = 1) +
-    labs(x = "Matching series", y ="Series to forecast")
+                      na.translate = F) +theme(aspect.ratio = 1, axis.text.x = element_text(angle = ang, vjust = vj, hjust = hj),
+                                               legend.position = "bottom") +
+    labs(x = "Matching series", y ="Series to forecast") + ggtitle("Usfulness")
   g2 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= reason)) +
     geom_tile(colour = "black", linewidth=0.25) +  scale_fill_viridis_d(option = "plasma", na.value="white") +
-    labs(x = "Matching series", y ="Series to forecast") + theme(aspect.ratio = 1)
+    labs(x = "Matching series", y ="Series to forecast") +
+    theme(aspect.ratio = 1, axis.text.x = element_text(angle = ang, vjust = vj, hjust = hj),
+          legend.position = "bottom") +
+    ggtitle("Reason")
   g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason"))
 
     list(df2, g3)
