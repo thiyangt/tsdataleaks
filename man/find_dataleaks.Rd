@@ -11,7 +11,7 @@ find_dataleaks(lstx, h, cutoff = 1)
 
 \item{h}{length of forecast horizon}
 
-\item{cutoff}{benchmark value for corr, default 1}
+\item{cutoff}{benchmark value for corr absolute value, default 1}
 }
 \value{
 list of matching quantities

@@ -2,7 +2,7 @@
 #'
 #' @param lstx list of time series
 #' @param h length of forecast horizon
-#' @param cutoff benchmark value for corr, default 1
+#' @param cutoff benchmark value for corr absolute value, default 1
 #' @importFrom  utils tail
 #' @importFrom plyr ldply
 #' @importFrom purrr map

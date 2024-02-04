@@ -41,11 +41,35 @@ As of the latest information available on the Comprehensive R Archive Network (C
 
 # Algorithm
 
-The algorithm operates as follows: it selects the final segment of the training portion from each time series in the collection, moves through all of the time series by one lag, and calculates the Pearson's correlation coefficient. Hence, the input to the algorithm are: i) the time series collection, ii) segment length, and iii) cut of value for the correlation coefficient serve as the algorithm's inputs. The algorithm returns the starting and end index of  the segments that match each time series' training part of the last segment. \autoref{fig:fig2} illustrates the first iteration of the algorithm and a intermediate step of the algorithm is shown in \autoref{fig:fig21}.
+The algorithm operates as follows: it selects the final segment of the training portion from each time series in the collection, moves through all of the time series by one lag, and calculates the Pearson's correlation coefficient. Hence, the input to the algorithm are: i) the time series collection, ii) segment length, and iii) cut of value for the correlation coefficient serve as the algorithm's inputs. The algorithm returns the starting and end index of  the segments that match each time series' training part of the last segment.
 
-![Visualization of the first iteration of the algorithm.The lst segment of the training part of the first series is coloured in purple. As the first step of the algorithm it is matched with the green section of the series 1.\label{fig:fig2}](figure2.png){height=20%}
+| **Algorithm: Time Series Matching**                                 |
+|---------------------------------------------------------------------|
+| **Input:**                                                          |
+| 1. *time_series_collection*: A collection of time series data.     |
+| 2. *segment_length*: Length of the segment to be considered.        |
+| 3. *correlation_cutoff*: Cut-off value for the Pearson's correlation coefficient. |
+|                                                                     |
+| **Output:**                                                         |
+| - *matching_segments*: A list containing starting and ending indices of segments that match each time series' training part of the last segment. |
+|                                                                     |
+| **Steps:**                                                          |
+| 1. *Initialize* an empty list: *matching_segments*.                 |
+| 2. *Loop through each time series* in the *time_series_collection*: |
+|    a. Extract the final segment of the training portion with length *segment_length*. |
+|    b. *Loop through the time series* with a lag of one, considering each segment: |
+|       - Calculate the Pearson's correlation coefficient between the extracted segment and the current segment. |
+|       - If the correlation coefficient is above the *correlation_cutoff*: |
+|          - *Update* the *matching_segments* list with the starting and ending indices of the matching segments. |
+| 3. *Return* the *matching_segments* list as the output.             |
 
-![Intermediate step of the algorithm: Identification of potential data leak.\label{fig:fig21}](fig2.png){height=20%}
+
+ \autoref{fig:fig2} illustrates the first iteration of the algorithm and a intermediate step of the algorithm is shown in \autoref{fig:fig21}.
+
+
+![Visualization of the first iteration of the algorithm.The lst segment of the training part of the first series is coloured in purple. As the first step of the algorithm it is matched with the green section of the series 1 and compute the Pearson's correlation coefficient.\label{fig:fig2}](figure2.png){height=30%}
+
+![Intermediate step of the algorithm: Identification of potential data leak. Light purple colour section of the fourth series perfectly correlates with the last segment of the first series. Hence, red colour section of the fourth series could be the test part of the first series. \label{fig:fig21}](fig2.png){height=30%}
 
 # Usage
 
@@ -105,7 +129,7 @@ Finally, `reason_dataleaks` displays the reasons for data leaks and evaluate use
 
 # Appication to the M1 competition data
 
-When, applying to find_dataleaks to the yearly time series in the Mcop package first, the training parts of all the series re stored into a list. In the M1 competition, length of the test period for yearly series is 6. Hence, `h` value is selected as 6. The cutoff value for the Pearson's correlation coefficient is 
+When, applying to `find_dataleaks` to the yearly time series in the Mcop package first, the training parts of all the series re stored into a list. In the M1 competition, length of the test period for yearly series is 6. Hence, `h` value is selected as 6. The cutoff value for the Pearson's correlation coefficient is 
 ```r
 library(Mcomp)
 data("M1")
@@ -115,9 +139,11 @@ m1y_f1 <- find_dataleaks(M1Y_x, h=6, cutoff = 1)
 m1y_f1
 ```
 
+The outputs of the above code and application  of other functionalities are available at package readme file at https://github.com/thiyangt/tsdataleaks
+
 # Conclusion
 
-The new open source R package described in this paper enable, i) exploit data leakages, ii) identify the reasons for data leakage as exact match or add a constant, iii) determining whether the data leakages identified are useful in winning the forecast competition and iv) visualize the results. tsdataleaks is a valuable tool for competition organizers, evaluators, and participants alike, enhancing their ability to efficiently detect and address data leakages. 
+The new open source R package described in this paper enable, i) exploit data leakages, ii) identify the reasons for data leakage as exact match or add a constant, iii) determining whether the data leakages identified are useful in winning the forecast competition and iv) visualize the results. tsdataleaks is a valuable tool for competition Organizers to avoid data leakages , Competitors to detect data leakages, and participants alike, entire forecasting research community to evaluate quality of data.
 
 # Reproducibility
 
