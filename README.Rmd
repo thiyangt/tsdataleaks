@@ -110,6 +110,6 @@ m1y_f1
 viz_dataleaks(m1y_f1)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.width=12}
 reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 ```
