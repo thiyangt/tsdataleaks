@@ -89,9 +89,7 @@ library(tsdataleaks)
 
 ## Functionality
 
-There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks` and iii) `reason_dataleaks`.
-
-To demonstrate the package functions, I created a small data set with 4 time series. 
+There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks` and iii) `reason_dataleaks`. To demonstrate the package functions, I created a small data set with 4 time series. 
 
 ```r
 set.seed(2024)
@@ -104,24 +102,30 @@ lst <- list(
   d = d)
 ```
 
-The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm. 
+Following are the steps in detecting data leakages and visualize the results.
+
+Step 1: The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm.  The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), and cutoff value for absolute value of the Pearson's correlation coefficient (cutoff).
 
 ```r
 f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1) 
-f1
 ```
 
-Next `viz_dataleaks` function visualize the results obtained in `find_dataleaks` for easy understanding as shown in \autoref{fig:fig4}
+Step 2: `viz_dataleaks` function visualize the results obtained in `find_dataleaks` for easy understanding as shown in \autoref{fig:fig4}
 
 ```r
 viz_dataleaks(f1)
 ```
 
+
+
+Step 3: `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout).
+
 ```r
 reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 ```
 
-Finally, `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The text output of the `reason_dataleaks` shown in \autoref{fig:fig5}. The visualization is available at https://github.com/thiyangt/tsdataleaks. For example, according to the 2nd row in the output, series b last part correlates with series a index 2 to 6. Hence, series `a` segment indices 7-12  can be the  series b remaining part. Hence, this identification is an useful identification. Furthermore, according to the fourth row of the same output series b last part correlates with series c segment with indices 11-15. However, we do not have observations from 16 on wards for the series c. Hence, it is not a useful identification in winning the forecasting competition. 
+
+For example, according to the 2nd row in the output, series b last part correlates with series a index 2 to 6. Hence, series `a` segment indices 7-12  can be the  series b remaining part. Hence, this identification is an useful identification. Furthermore, according to the fourth row of the same output series b last part correlates with series c segment with indices 11-15. However, we do not have observations from 16 on wards for the series c. Hence, it is not a useful identification in winning the forecasting competition. 
 
 ![The text output of viz_dataleaks\label{fig:fig5}](figure5.png){height=50%}
 
