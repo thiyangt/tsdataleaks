@@ -105,6 +105,7 @@ Finally, `reason_dataleaks` displays the reasons for data leaks and evaluate use
 
 # Appication to the M1 competition data
 
+When, applying to find_dataleaks to the yearly time series in the Mcop package first, the training parts of all the series re stored into a list. In the M1 competition, length of the test period for yearly series is 6. Hence, `h` value is selected as 6. The cutoff value for the Pearson's correlation coefficient is 
 ```r
 library(Mcomp)
 data("M1")
@@ -116,7 +117,11 @@ m1y_f1
 
 # Conclusion
 
-The new open source R package described in this paper enable, i) explot data leakages, ii) identify the reasons for data leakage as exact match or add a constant, iii) determining whether the data leakages identified are useful in winning the forecast competition and iv) visualise the results. 
+The new open source R package described in this paper enable, i) exploit data leakages, ii) identify the reasons for data leakage as exact match or add a constant, iii) determining whether the data leakages identified are useful in winning the forecast competition and iv) visualize the results. tsdataleaks is a valuable tool for competition organizers, evaluators, and participants alike, enhancing their ability to efficiently detect and address data leakages. 
+
+# Reproducibility
+
+Codes to generate this manuscript is available at https://github.com/thiyangt/tsdataleaks
 
 # References
 

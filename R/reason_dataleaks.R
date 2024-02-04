@@ -23,6 +23,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   ndf2 <- dim(df2)[1]
   dist.mean <- numeric(ndf2)
   dist.sd <- numeric(ndf2)
+  dist.cor <- numeric(ndf2)
   is.useful.leak <- numeric(ndf2)
   if (is.null(names(lstx)) == TRUE){
   for (i in 1:ndf2){ # not labelled list
@@ -40,7 +41,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
     dist <- s1.section - s2.section
     dist.mean[i] <- mean(dist)
     dist.sd[i] <- stats::sd(dist)
-
+    dist.cor[i] <- round(cor(s1.section,  s2.section),2)
 
   }
     } else { # labelled list
@@ -62,6 +63,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
       dist <- s1.section - s2.section
       dist.mean[i] <- round(mean(dist), 1)
       dist.sd[i] <- round(sd(dist), 1)
+      dist.cor[i] <- round(cor(s1.section,  s2.section), 2)
 
 
     }
@@ -73,10 +75,12 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   df2$dist_mean <- dist.mean
   df2$dist_sd <- dist.sd
   df2$is.useful.leak <- is.useful.leak
+  df2$dist_cor <- dist.cor
 
   df2 <- df2 |>
     dplyr::mutate(reason = ifelse(dist_mean == 0 & dist_sd == 0 , "exact match",
-                       ifelse(dist_mean != 0 & dist_sd == 0 , "add constant", "Do not know")))
+                           ifelse(dist_cor == -1, "multiply by -1",
+                       ifelse(dist_mean != 0 & dist_sd == 0 , "add constant", "Do not know"))))
 
  # g1 <- ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= is.useful.leak)) +
  #   geom_tile(colour = "black", size=0.25) +

@@ -10,7 +10,7 @@
 ts.match <- function(x, y, cutoff=1){
   slide.size <- length(y)
   fn <- function(x){stats::cor(x, y)}
-  match.index <- round(slider::slide_dbl(x, fn, .before = slide.size - 1L, .complete = TRUE), 4)
+  match.index <- abs(round(slider::slide_dbl(x, fn, .before = slide.size - 1L, .complete = TRUE), 4))
   index.cutoff.end <- which(match.index >= cutoff)
   index.cutoff.start <- index.cutoff.end - (slide.size-1L)
 
@@ -23,7 +23,7 @@ ts.match <- function(x, y, cutoff=1){
 }
 #' @examples
 #' x <- rnorm(15)
-#' y <- x[6:10]
+#' y <- -x[6:10]
 #' x <- c(x, y)
 #' ts.match(x, y, 1)
 #' z <- rnorm(5)

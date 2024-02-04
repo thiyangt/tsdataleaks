@@ -55,7 +55,7 @@ d <- rnorm(10)
 lst <- list(
   a = a,
   b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
-  c = c(rnorm(10), a[1:5]),
+  c = c(rnorm(10), -a[1:5]),
   d = d,
   e = d)
 
@@ -93,5 +93,23 @@ r1
 ```
 
 
+# Application to M-Competition data
 
+## M1 Competition - Yearly data
 
+```{r}
+library(Mcomp)
+data("M1")
+M1Y <- subset(M1, "yearly")
+M1Y_x <- lapply(M1Y, function(temp){temp$x})
+m1y_f1 <- find_dataleaks(M1Y_x, h=6, cutoff = 1)
+m1y_f1
+```
+
+```{r}
+viz_dataleaks(m1y_f1)
+```
+
+```{r}
+reason_dataleaks(M1Y_x, m1y_f1, h=6)
+```
