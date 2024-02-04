@@ -137,15 +137,15 @@ if (ang>0){
     geom_tile(colour = "black", linewidth=0.25) +
     scale_fill_manual(values = c("#d95f02", "#1b9e77", "seagreen3"),
                       na.translate = F) +theme(aspect.ratio = 1, axis.text.x = element_text(angle = ang, vjust = vj, hjust = hj),
-                                               legend.position = "bottom") +
-    labs(x = "Matching series", y ="Series to forecast") + ggtitle("Usfulness")
+                                               legend.position = "non") +
+    labs(x = "Matching series", y ="Series to forecast") + ggtitle("(A) Useful detects")
   g2 <- ggplot2::ggplot(t, aes(y=series1, x=.id, fill= reason)) +
     geom_tile(colour = "black", linewidth=0.25) +  scale_fill_viridis_d(option = "plasma", na.value="white") +
     labs(x = "Matching series", y ="Series to forecast") +
     theme(aspect.ratio = 1, axis.text.x = element_text(angle = ang, vjust = vj, hjust = hj),
           legend.position = "bottom") +
-    ggtitle("Reason")
-  g3 <- cowplot::plot_grid(g1, g2, labels = c("Usefulness", "Reason"))
+    ggtitle("(B) Reason for data leak")
+  g3 <- cowplot::plot_grid(g1, g2)
 
     list(df2, g3)
     #return(g3)
