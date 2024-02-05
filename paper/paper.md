@@ -4,7 +4,8 @@ tags:
 - R
 - time series
 - duplicate
-date: "26 December 2023"
+- data quality
+date: "5 February 2024"
 output: pdf_document
 authors:
 - name: Thiyanga S. Talagala
@@ -42,39 +43,39 @@ As of the latest information available on the Comprehensive R Archive Network (C
 
 # Algorithm
 
-The algorithm operates as follows: it selects the final segment of the training portion from each time series in the collection, moves through all of the time series by one lag, and calculates the Pearson's correlation coefficient. Hence, the input to the algorithm are: i) the time series collection, ii) segment length, and iii) cut of value for the correlation coefficient serve as the algorithm's inputs. The algorithm returns the starting and end index of  the segments that match each time series' training part of the last segment.
+The algorithm operates as follows: the algorithm begins by selecting the final segment of the training section in each time series within the collection. Subsequently, those segments iterates through all of the time series one time step at a time and calculate Pearson's correlation coefficient. Hence, the inputs to the algorithm are: i) the time series collection; ii) segment length; and iii) the cut-off value for the correlation coefficient. A data leak is indicated if the Pearson's correlation coefficient's absolute value exceeds the cutoff value. The algorithm returns the starting and end indexes of the segments that match each time series'  last segment corresponds to the training part.
+
+
 
 | **Algorithm: Time Series Matching**                                 |
 |---------------------------------------------------------------------|
 | **Input:**                                                          |
-| 1. *lst*: A collection of time series as a list.     |
+| 1. *lst*: A collection of time series as a list in R.     |
 | 2. *h*: Length of the segment to be considered.        |
 | 3. *cutoff*: Cut-off value for the absolute value of the Pearson's correlation coefficient. |
 |                                                                     |
 | **Output:**                                                         |
-|  A list containing starting and ending indices of segments that match each time series' training part of the last segment. |
+|  A list containing starting and ending indices of segments that match each time series' last segment of the training set. |
 |                                                                     |
 | **Steps:**                                                          |
-| 1. *Initialize* an empty list: *matching_segments*.                 |
-| 2. *Loop through each time series* in the *lst*: |
-|    a. Extract the final segment of the training portion with length *h*. |
-|    b. *Loop through the time series* with a step of one time point, considering each segment: |
-|       - Calculate the Pearson's correlation coefficient between the extracted segment and the current segment. |
-|       - If the correlation coefficient is above the *cutoff*: |
-|          - Return the matching segments list with the starting and ending indices of the matching segments. |
-| 3. *Return* the matching segments list as the output.             |
+|    1. Extract the last segment of the training part with length *h*. |
+|    2. *Loop through the time series* with one time step, considering each segment: |
+|            - Calculate the Pearson's correlation coefficient between the current segment of a time series and the last portion of the training segment that was retrieved. |
+|             - If the correlation coefficient is above the *cutoff*: |
+|             - Return the matching segments list with the starting and ending indices of the matching segments. |
+|   3. *Return* the matching segments list as the output.             |
 
 
- \autoref{fig:fig21} illustrates the first iteration of the algorithm.
+ \autoref{fig:fig21} illustrates the first iteration of the algorithm. The correlation between the purple segment and observations 1–6 of the first time series is measured at the first iteration.
  
- \autoref{fig:fig22} visualize the second iteration of the algorithm. At the second iteration correlation between the observation 2-7 and the purple segment is measured. \autoref{fig:fig22} illustrates an intermediate step of the algorithm.
+ \autoref{fig:fig22} visualize the second iteration of the algorithm. The correlation between the purple segment and observations 2–7 of the first time series is measured at the second iteration. \autoref{fig:fig22} illustrates an intermediate step of the algorithm.
 
 
-![Visualization of the first iteration of the algorithm. The last segment of the training part of the first series is coloured in purple. As the first step of the algorithm it  computes the Pearson's correlation coefficient between the observations 1-6 and the purple segment.\label{fig:fig21}](figure2.png){height=30%}
+![Visualization of the first iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the first step of the algorithm, it computes Pearson's correlation coefficient between the observations 1-6 and the purple segment.\label{fig:fig21}](figure2.png){height=30%}
 
-![Visualization of the first iteration of the algorithm. The last segment of the training part of the first series is coloured in purple. As the first step of the algorithm it  computes the Pearson's correlation coefficient between the observations 1-6 and the purple segment.\label{fig:fig22}](fig22.png){height=30%}
+![Visualization of the second iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the second step of the algorithm, it computes Pearson's correlation coefficient between the observations 2-7 and the purple segment.\label{fig:fig22}](fig22.png){height=30%}
 
-![Intermediate step of the algorithm: Identification of potential data leak. Light purple colour section of the fourth series perfectly correlates with the last segment of the first series. Hence, red colour section of the fourth series could be the test part of the first series. \label{fig:fig23}](fig23.png){height=30%}
+![Intermediate step of the algorithm: identification of potential data leaks. The light purple section of the fourth series perfectly correlates with the last segment of the first series. Hence, the red section of the fourth series could be the test part of the first series. \label{fig:fig23}](fig23.png){height=30%}
 
 # Usage
 
@@ -89,7 +90,7 @@ library(tsdataleaks)
 
 ## Functionality
 
-There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks` and iii) `reason_dataleaks`. To demonstrate the package functions, I created a small data set with 4 time series. 
+There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks`, and iii) `reason_dataleaks`. To demonstrate the package functions, a small time series collection with four time series is created. 
 
 ```r
 set.seed(2024)
@@ -100,35 +101,35 @@ lst <- list(
   z = c(rnorm(10), x[10:15]))
 ```
 
-Following are the steps in detecting data leakages and visualize the results.
+Following are the steps for detecting data leakages and visualizing the results.
 
-**Step 1:** The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm.  The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), and cutoff value for absolute value of the Pearson's correlation coefficient (cutoff).
+**Step 1:** The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm. The inputs to the function are a list of time series collections (lst), the length of the segment to be considered (h), and the cutoff value for the absolute value of Pearson's correlation coefficient (cutoff). The `f1` output is shown in \autoref{fig:simulated} (step1).
 
 ```r
 f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1) 
 ```
 
-**Step 2:** `viz_dataleaks` function visualize the results obtained in `find_dataleaks` for easy understanding as shown in \autoref{fig:fig4}
+**Step 2:** `viz_dataleaks` function arranges the results of `find_dataleaks` in matrix form and visualizes them for easy understanding, as shown in \autoref{fig:simulated} (step2).
 
 ```r
 viz_dataleaks(f1)
 ```
 
-**Step 3:** `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout).
+**Step 3:** `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout). The corresponding outputs are shown in \autoref{fig:simulated} (step3).
 
 ```r
 reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 ```
 
-![The text output of viz_dataleaks\label{fig:simulated}](simulated.png){height=50%}
+![The outputs of f1, viz_dataleaks(f1) and reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5) \label{fig:simulated}](simulated.png){height=50%}
 
-For example, according to the 2nd row in the output, series b last part correlates with series a index 2 to 6. Hence, series `a` segment indices 7-12  can be the  series b remaining part. Hence, this identification is an useful identification. Furthermore, according to the fourth row of the same output series b last part correlates with series c segment with indices 11-15. However, we do not have observations from 16 on wards for the series c. Hence, it is not a useful identification in winning the forecasting competition. 
+According to the \autoref{fig:simulated}, the last part of the training set in x series perfectly correlates with z series: 12–16 observations; the last part of y series correlates with x series: 1–5 observations; and the last part of z series correlates with x series: 11–15 observations. However, according to the step 3 results, only "the last part of the y series correlates with the x series: 1–5 observations" identification is useful in winning the competition. The reason is that we have x-series 6:10 observations. Hence, we can use that as the test value of the y series. "The last part of the z series correlates with x series: 11–15 observations." This identification is not useful in winning the competition because x series: 16–20 observations are available. In this example, all data leakages occur due to an exact match.
 
 
 
 # Appication to the M1 competition yearly time series data
 
-Before applying find_dataleaks function all of the training sets of yearly series are stored into a list called `M1Y_x`. In the M1 competition, length of the test period for yearly series is 6. Hence, `h` value is selected as 6. The cutoff value for the absolute value of Pearson's correlation coefficient is 1.
+M-competitions is a series of time-series forecasting competitions organized by Spyros Makridakis and his team [@makridakis2020m4]. M1-competition data is available in the package @mcomp. Before applying the find_dataleaks function, all of the training sets of yearly series are stored in a list called `M1Y_x`. In the M1 competition, the length of the test period for the yearly series is 6. Hence, the `h` value is selected as 6. The cutoff value for the absolute value of Pearson's correlation coefficient is 1.
 
 ```r
 library(Mcomp)
@@ -140,20 +141,22 @@ viz_dataleaks(m1y_f1)
 reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 ```
 
-![The text output of viz_dataleaks\label{fig:m1y}](m1y.png){height=50%}
+![Outputs of viz_dataleaks(m1y_f1) and reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90).\label{fig:m1y}](m1y.png){height=50%}
+
+There are 7 data leakage detentions. Out of them, only three are useful in winning the competition. Two data leakages are due to an exact match; the other is due to a linear transformation of the form $y = mx + c$.
 
 
 ## Documentation and Examples
 
-The outputs of the above code and application  of other functionalities are available at package readme file at https://github.com/thiyangt/tsdataleaks
+Applications to other examples can be found in the README.md file at https://github.com/thiyangt/tsdataleaks.
 
 # Conclusion
 
-The new open source R package described in this paper enable, i) exploit data leakages, ii) identify the reasons for data leakage as exact match or add a constant, iii) determining whether the data leakages identified are useful in winning the forecast competition and iv) visualize the results. tsdataleaks is a valuable tool for competition Organizers to avoid data leakages , Competitors to detect data leakages, and participants alike, entire forecasting research community to evaluate quality of data.
+The new open-source R package described in this paper enables: i) exploiting data leakages; ii) identifying the reasons for data leakage as exact matches or adding a constant; and ii) other transformations. iii) determining whether the data leakages identified are useful in winning the forecast competition; and iv) visualizing the results. tsdataleaks is a valuable tool for competition organizers to avoid data leakages, participants to detect data leakages, and the entire forecasting research community to evaluate the quality of data.
 
 # Reproducibility
 
-Codes to generate this manuscript is available at https://github.com/thiyangt/tsdataleaks
+Codes to generate this manuscript is available at https://github.com/thiyangt/tsdataleaks/blob/master/paper/paper.md
 
 # References
 
