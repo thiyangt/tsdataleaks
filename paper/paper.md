@@ -93,53 +93,57 @@ There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleak
 
 ```r
 set.seed(2024)
-a <- rnorm(15)
-d <- rnorm(10)
+x <- rnorm(15)
 lst <- list(
-  a = a,
-  b = c(rnorm(10), a[1:5], a[1:5]),
-  c = c(rnorm(10), a[10:15]),
-  d = d)
+  x = x,
+  y = c(rnorm(10), x[1:5]),
+  z = c(rnorm(10), x[10:15]))
 ```
 
 Following are the steps in detecting data leakages and visualize the results.
 
-Step 1: The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm.  The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), and cutoff value for absolute value of the Pearson's correlation coefficient (cutoff).
+**Step 1:** The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm.  The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), and cutoff value for absolute value of the Pearson's correlation coefficient (cutoff).
 
 ```r
 f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1) 
 ```
 
-Step 2: `viz_dataleaks` function visualize the results obtained in `find_dataleaks` for easy understanding as shown in \autoref{fig:fig4}
+**Step 2:** `viz_dataleaks` function visualize the results obtained in `find_dataleaks` for easy understanding as shown in \autoref{fig:fig4}
 
 ```r
 viz_dataleaks(f1)
 ```
 
-
-
-Step 3: `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout).
+**Step 3:** `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout).
 
 ```r
 reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 ```
 
+![The text output of viz_dataleaks\label{fig:simulated}](simulated.png){height=50%}
 
 For example, according to the 2nd row in the output, series b last part correlates with series a index 2 to 6. Hence, series `a` segment indices 7-12  can be the  series b remaining part. Hence, this identification is an useful identification. Furthermore, according to the fourth row of the same output series b last part correlates with series c segment with indices 11-15. However, we do not have observations from 16 on wards for the series c. Hence, it is not a useful identification in winning the forecasting competition. 
 
-![The text output of viz_dataleaks\label{fig:fig5}](figure5.png){height=50%}
+
 
 # Appication to the M1 competition yearly time series data
 
-When, applying to `find_dataleaks` to the yearly time series in the Mcop package first, the training parts of all the series re stored into a list. In the M1 competition, length of the test period for yearly series is 6. Hence, `h` value is selected as 6. The cutoff value for the Pearson's correlation coefficient is 
+Before applying find_dataleaks function all of the training sets of yearly series are stored into a list called `M1Y_x`. In the M1 competition, length of the test period for yearly series is 6. Hence, `h` value is selected as 6. The cutoff value for the absolute value of Pearson's correlation coefficient is 1.
+
 ```r
 library(Mcomp)
 data("M1")
 M1Y <- subset(M1, "yearly")
 M1Y_x <- lapply(M1Y, function(temp){temp$x})
 m1y_f1 <- find_dataleaks(M1Y_x, h=6, cutoff = 1)
-m1y_f1
+viz_dataleaks(m1y_f1)
+reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 ```
+
+![The text output of viz_dataleaks\label{fig:m1y}](m1y.png){height=50%}
+
+
+## Documentation and Examples
 
 The outputs of the above code and application  of other functionalities are available at package readme file at https://github.com/thiyangt/tsdataleaks
 

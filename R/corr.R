@@ -4,6 +4,7 @@
 #' @param y subsection of the time series to map
 #' @param cutoff benchmark value for corr, default 1
 #' @importFrom slider slide_dbl
+#' @importFrom stats cor
 #' @importFrom tibble tibble
 #' @return Pearson's correlation coefficient between \code{x} and \code{y}
 #' @export
@@ -21,7 +22,7 @@ ts.match <- function(x, y, cutoff=1){
     tibble::tibble(start = index.cutoff.start, end = index.cutoff.end)
   }
 }
-#' @examples
+#'@examples
 #' x <- rnorm(15)
 #' y <- -x[6:10]
 #' x <- c(x, y)

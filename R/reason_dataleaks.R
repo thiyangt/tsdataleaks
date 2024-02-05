@@ -155,7 +155,7 @@ if (ang>0){
     #return(g3)
 
 }
-#' @examples
+#'@examples
 #' a = rnorm(15)
 #' lst <- list(
 #'  a = a,

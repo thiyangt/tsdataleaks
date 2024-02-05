@@ -41,7 +41,7 @@ viz_dataleaks <- function(finddataleaksout){
     theme(aspect.ratio = 1),
   finddataleaksout)
 }
-#' @examples
+#'@examples
 #' a = rnorm(15)
 #'lst <- list(
 #'  a = a,

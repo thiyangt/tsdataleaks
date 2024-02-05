@@ -3,4 +3,10 @@ utils::globalVariables(c( "rname", "sd", "dist_mean", "dist_sd",
                          "complete", "aes", "count", "geom_tile",
                          "scale_fill_viridis", "labs",
                          "filter", "is.useful.leak", "left_join", "scale_fill_manual",
-                         "scale_fill_viridis_d", "reason", "is.useful.leak", 'theme'))
+                         "scale_fill_viridis_d", "reason", "is.useful.leak", "theme",
+                         "cor",
+                         "dist_cor",
+                         "element_text",
+                         "reason_dataleaks",
+                         "element_blank",
+                         "ggtitle"))

@@ -60,7 +60,7 @@ find_dataleaks <- function(lstx, h, cutoff=1){
 
 
 }
-#' @examples
+#'@examples
 #' a = rnorm(15)
 #'lst <- list(
 #'  a = a,

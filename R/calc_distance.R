@@ -79,7 +79,7 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   df2
 
 }
-#' @examples
+#'@examples
 #' a = rnorm(15)
 #' lst <- list(
 #'  a = a,
