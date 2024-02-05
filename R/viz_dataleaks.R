@@ -62,12 +62,19 @@ viz_dataleaks <- function(finddataleaksout){
   df3 <- df3 |> tidyr::expand(series1, .id)
   df2 <- dplyr::full_join(df2, df3)
 
-  list(
-  ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= count)) +
-    geom_tile(colour = "black", linewidth=0.25) +
-    scale_fill_viridis(option="viridis", na.value = "white") +
-    labs(x = "Matching series", y ="Series to forecast") +
-    theme(aspect.ratio = 1),
-  finddataleaksout)
+ # list(
+ #  ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= count)) +
+ #   geom_tile(colour = "black", linewidth=0.25) +
+ #   scale_fill_viridis(option="viridis", na.value = "white") +
+ #   labs(x = "Matching series", y ="Series to forecast") +
+ #   theme(aspect.ratio = 1),
+ # finddataleaksout)
+
+ ggplot2::ggplot(df2, aes(y=series1, x=.id, fill= count)) +
+geom_tile(colour = "black", linewidth=0.25) +
+  scale_fill_viridis(option="viridis", na.value = "white") +
+  labs(x = "Matching series", y ="Series to forecast") +
+  theme(aspect.ratio = 1)
+
 }
 
