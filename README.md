@@ -154,6 +154,60 @@ r1
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
+# A list without naming element
+
+``` r
+a = rnorm(15)
+lst <- list(
+  a,
+  c(a[10:15], rnorm(10), a[1:5], a[1:5]),
+  c(rnorm(10), a[1:5])
+)
+f1 <- find_dataleaks(lst, h=5)
+```
+
+``` r
+viz_dataleaks(f1)
+#> [[1]]
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+
+    #> 
+    #> [[2]]
+    #> [[2]]$`1`
+    #>   .id start end
+    #> 2   2     2   6
+    #> 
+    #> [[2]]$`2`
+    #>   .id start end
+    #> 1   1     1   5
+    #> 2   2    17  21
+    #> 4   3    11  15
+    #> 
+    #> [[2]]$`3`
+    #>   .id start end
+    #> 1   1     1   5
+    #> 2   2    17  21
+    #> 3   2    22  26
+
+``` r
+reason_dataleaks(lst, f1, h=5)
+#> [[1]]
+#>   series1 .id start end dist_mean dist_sd is.useful.leak dist_cor      reason
+#> 1       1   2     2   6         0       0         useful        1 exact match
+#> 2       2   1     1   5         0       0         useful        1 exact match
+#> 3       2   2    17  21         0       0         useful        1 exact match
+#> 4       2   3    11  15         0       0     not useful        1 exact match
+#> 5       3   1     1   5         0       0         useful        1 exact match
+#> 6       3   2    17  21         0       0         useful        1 exact match
+#> 7       3   2    22  26         0       0     not useful        1 exact match
+#> 
+#> [[2]]
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+
 # Application to M-Competition data
 
 ## M1 Competition - Yearly data
@@ -199,7 +253,7 @@ viz_dataleaks(m1y_f1)
 #> [[1]]
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
     #> 
     #> [[2]]
@@ -254,4 +308,4 @@ reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 #> [[2]]
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />

@@ -9,6 +9,35 @@
 #' @importFrom viridis scale_fill_viridis
 #' @return  matrix visualizing the output
 #' @export
+#' @examples
+#' a = rnorm(15)
+#'lst <- list(
+#'  a = a,
+#'  b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
+#'  c = c(rnorm(10), a[1:5]),
+#'  d = rnorm(10)
+#')
+#'f1 <- find_dataleaks(lst, h=5)
+#'viz_dataleaks(f1)
+#'
+#' a = rnorm(15)
+#'lst <- list(
+#'  x= a,
+#'  y= c(rnorm(10), a[1:5])
+#')
+#'
+#'f2 <- find_dataleaks(lst, h=5)
+#'viz_dataleaks(f2)
+#'
+#'# List without naming elements
+#' lst <- list(
+#'  a,
+#'  c(rnorm(10), a[1:5], a[1:5]),
+#'  rnorm(10)
+#')
+#'f3 <- find_dataleaks(lst, h=5)
+#'viz_dataleaks(f3)
+
 viz_dataleaks <- function(finddataleaksout){
 
   if(length(finddataleaksout)==0){x <- readline("Empty list!\n(press enter to continue)")
@@ -41,32 +70,4 @@ viz_dataleaks <- function(finddataleaksout){
     theme(aspect.ratio = 1),
   finddataleaksout)
 }
-#'@examples
-#' a = rnorm(15)
-#'lst <- list(
-#'  a = a,
-#'  b = c(a[10:15]+rep(8,6), rnorm(10), a[1:5], a[1:5]),
-#'  c = c(rnorm(10), a[1:5]),
-#'  d = rnorm(10)
-#')
-#'f1 <- find_dataleaks(lst, h=5)
-#'viz_dataleaks(f1)
-#'
-#' a = rnorm(15)
-#'lst <- list(
-#'  x= a,
-#'  y= c(rnorm(10), a[1:5])
-#')
-#'
-#'f2 <- find_dataleaks(lst, h=5)
-#'viz_dataleaks(f2)
-#'
-#'# List without naming elements
-#' lst <- list(
-#'  a,
-#'  c(rnorm(10), a[1:5], a[1:5]),
-#'  rnorm(10)
-#')
-#'f3 <- find_dataleaks(lst, h=5)
-#'viz_dataleaks(f3)
 

@@ -8,6 +8,13 @@
 #' @importFrom tibble tibble
 #' @return Pearson's correlation coefficient between \code{x} and \code{y}
 #' @export
+#' @examples
+#' x <- rnorm(15)
+#' y <- -x[6:10]
+#' x <- c(x, y)
+#' ts.match(x, y, 1)
+#' z <- rnorm(5)
+#' ts.match(x, z)
 ts.match <- function(x, y, cutoff=1){
   slide.size <- length(y)
   fn <- function(x){stats::cor(x, y)}
@@ -22,11 +29,5 @@ ts.match <- function(x, y, cutoff=1){
     tibble::tibble(start = index.cutoff.start, end = index.cutoff.end)
   }
 }
-#'@examples
-#' x <- rnorm(15)
-#' y <- -x[6:10]
-#' x <- c(x, y)
-#' ts.match(x, y, 1)
-#' z <- rnorm(5)
-#' ts.match(x, z)
+
 

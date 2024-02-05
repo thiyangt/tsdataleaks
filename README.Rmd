@@ -48,7 +48,7 @@ library(tsdataleaks)
 
 To demonstrate the package functions, I created a small data set with 4 time series. 
 
-```{r example, comment=NA}
+```{r example, comment=NA, warning=FALSE, message=FALSE}
 set.seed(2020)
 a <- rnorm(15)
 d <- rnorm(10)
@@ -90,6 +90,26 @@ Display the reasons for data leaks and evaluate usefulness of data leaks towards
 ```{r, comment=NA, message=FALSE, warning=FALSE}
 r1 <- reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 r1
+```
+
+# A list without naming element 
+
+```{r, warning=FALSE, message=FALSE}
+a = rnorm(15)
+lst <- list(
+  a,
+  c(a[10:15], rnorm(10), a[1:5], a[1:5]),
+  c(rnorm(10), a[1:5])
+)
+f1 <- find_dataleaks(lst, h=5)
+```
+
+```{r, warning=FALSE, message=FALSE}
+viz_dataleaks(f1)
+```
+
+```{r, warning=FALSE, message=FALSE}
+reason_dataleaks(lst, f1, h=5)
 ```
 
 

@@ -9,6 +9,29 @@
 #' @importFrom  stats na.omit
 #' @return list of matching quantities
 #' @export
+#' @examples
+#' a = rnorm(15)
+#'lst <- list(
+#'  a = a,
+#'  b = c(a[10:15], rnorm(10), a[1:5], a[1:5]),
+#'  c = c(rnorm(10), a[1:5])
+#')
+#'find_dataleaks(lst, h=5)
+#'#' a = rnorm(15)
+#'lst <- list(
+#'  x= a,
+#'  y= c(rnorm(10), a[1:5])
+#')
+#'
+#'find_dataleaks(lst, h=5)
+#'
+#'# List without naming elements
+#' lst <- list(
+#'  a,
+#'  c(rnorm(10), a[1:5], a[1:5]),
+#'  rnorm(10)
+#')
+#'find_dataleaks(lst, h=5)
 find_dataleaks <- function(lstx, h, cutoff=1){
   n <- length(lstx)
   if (is.null(names(lstx)) == TRUE){names(lstx) <- 1:n} # This is important when displying the final results
@@ -60,27 +83,5 @@ find_dataleaks <- function(lstx, h, cutoff=1){
 
 
 }
-#'@examples
-#' a = rnorm(15)
-#'lst <- list(
-#'  a = a,
-#'  b = c(a[10:15], rnorm(10), a[1:5], a[1:5]),
-#'  c = c(rnorm(10), a[1:5])
-#')
-#'find_dataleaks(lst, h=5)
-#'#' a = rnorm(15)
-#'lst <- list(
-#'  x= a,
-#'  y= c(rnorm(10), a[1:5])
-#')
-#'
-#'find_dataleaks(lst, h=5)
-#'
-#'# List without naming elements
-#' lst <- list(
-#'  a,
-#'  c(rnorm(10), a[1:5], a[1:5]),
-#'  rnorm(10)
-#')
-#'find_dataleaks(lst, h=5)
+
 

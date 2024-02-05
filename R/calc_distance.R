@@ -9,6 +9,24 @@
 #' @importFrom dplyr mutate
 #' @return  matrix visualizing the output
 #' @export
+#' @examples
+#' a = rnorm(15)
+#' lst <- list(
+#'  a = a,
+#'  b = c(a[10:15], rnorm(10), a[1:5]+10, a[1:5]),
+#'  c = c(rnorm(10), a[1:5])
+#')
+#'f1 <- find_dataleaks(lst, h=5)
+#'reason_dataleaks(lst, f1, h=5)
+#'
+#'# List without naming elements
+#' lst <- list(
+#'  a,
+#'  c(rnorm(10), a[1:5], a[1:5]),
+#'  rnorm(10)
+#')
+#'f2 <- find_dataleaks(lst, h=5)
+#'reason_dataleaks(lst, f2, h=5)
 reason_dataleaks <- function(lstx, finddataleaksout, h){
 
   if(length(finddataleaksout)==0){x <- readline("Empty list!\n(press enter to continue)")
@@ -79,22 +97,5 @@ reason_dataleaks <- function(lstx, finddataleaksout, h){
   df2
 
 }
-#'@examples
-#' a = rnorm(15)
-#' lst <- list(
-#'  a = a,
-#'  b = c(a[10:15], rnorm(10), a[1:5]+10, a[1:5]),
-#'  c = c(rnorm(10), a[1:5])
-#')
-#'f1 <- find_dataleaks(lst, h=5)
-#'reason_dataleaks(lst, f1, h=5)
-#'
-#'# List without naming elements
-#' lst <- list(
-#'  a,
-#'  c(rnorm(10), a[1:5], a[1:5]),
-#'  rnorm(10)
-#')
-#'f2 <- find_dataleaks(lst, h=5)
-#'reason_dataleaks(lst, f2, h=5)
+
 

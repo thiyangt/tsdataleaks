@@ -6,12 +6,33 @@
 #' @param ang angle at which the tick and axis labels should be displayed (default 0)
 #' @importFrom  tibble rownames_to_column
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
 #' @importFrom stats  sd
 #' @importFrom dplyr select
 #' @importFrom dplyr full_join
 #' @importFrom dplyr group_by_at
+#' @importFrom dplyr summarise
+#' @importFrom dplyr n
+#' @importFrom viridis scale_fill_viridis
+#' @importFrom ggplot2 scale_fill_viridis_d
+#' @importFrom ggplot2 geom_tile
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_text
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 labs
+#' @importFrom ggplot2 ggtitle
 #' @return  matrix visualizing the output
 #' @export
+#' @examples
+#' a = rnorm(15)
+#' lst <- list(
+#'  a = a,
+#'  b = c(a[10:15], rnorm(10), a[1:5], a[1:5]),
+#'  c = c(rnorm(10), a[1:5])
+#')
+#'f1 <- find_dataleaks(lst, h=5)
+#'reason_dataleaks(lst, f1, h=5)
 reason_dataleaks <- function(lstx, finddataleaksout, h, ang=0){
 
   if(length(finddataleaksout)==0){x <- readline("Empty list!\n(press enter to continue)")
@@ -152,25 +173,8 @@ if (ang>0){
   g3 <- cowplot::plot_grid(g1, g2)
 
     list(df2, g3)
-    #return(g3)
+
 
 }
-#'@examples
-#' a = rnorm(15)
-#' lst <- list(
-#'  a = a,
-#'  b = c(a[10:15], rnorm(10), a[1:5]+10, a[1:5]),
-#'  c = c(rnorm(10), a[1:5])
-#')
-#'f1 <- find_dataleaks(lst, h=5)
-#'reason_dataleaks(lst, f1, h=5)
-#'
-#'# List without naming elements
-#' lst <- list(
-#'  a,
-#'  c(rnorm(10), a[1:5], a[1:5]),
-#'  rnorm(10)
-#')
-#'f2 <- find_dataleaks(lst, h=5)
-#'reason_dataleaks(lst, f2, h=5)
+
 
