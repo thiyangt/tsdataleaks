@@ -90,7 +90,7 @@ library(tsdataleaks)
 
 ## Functionality
 
-There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks`, and iii) `reason_dataleaks`. To demonstrate the package functions, a small time series collection with four time series is created. 
+There are three functions in the package: i) `find_dataleaks`, ii) `viz_dataleaks`, and iii) `reason_dataleaks`. To demonstrate the package functions, a small time series collection with three time series is created. 
 
 ```r
 set.seed(2024)
@@ -103,7 +103,7 @@ lst <- list(
 
 Following are the steps for detecting data leakages and visualizing the results.
 
-**Step 1:** The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm. The inputs to the function are a list of time series collections (lst), the length of the segment to be considered (h), and the cutoff value for the absolute value of Pearson's correlation coefficient (cutoff). The `f1` output is shown in \autoref{fig:simulated} (step1).
+**Step 1:** The main function in the package is `find_dataleaks`. It exploits the data leakages according to the algorithm. The inputs to the function are a list of time series collections (lstx), the length of the segment to be considered (h), and the cutoff value for the absolute value of Pearson's correlation coefficient (cutoff). The `f1` output is shown in \autoref{fig:simulated} (step1).
 
 ```r
 f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1) 
@@ -115,7 +115,7 @@ f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1)
 viz_dataleaks(f1)
 ```
 
-**Step 3:** `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lst), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout). The corresponding outputs are shown in \autoref{fig:simulated} (step3).
+**Step 3:** `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lstx), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout). The corresponding outputs are shown in \autoref{fig:simulated} (step3).
 
 ```r
 reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
@@ -123,13 +123,13 @@ reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
 
 ![The outputs of f1, viz_dataleaks(f1) and reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5) \label{fig:simulated}](simulated.png){height=50%}
 
-According to the \autoref{fig:simulated}, the last part of the training set in x series perfectly correlates with z series: 12–16 observations; the last part of y series correlates with x series: 1–5 observations; and the last part of z series correlates with x series: 11–15 observations. However, according to the step 3 results, only "the last part of the y series correlates with the x series: 1–5 observations" identification is useful in winning the competition. The reason is that we have x-series 6:10 observations. Hence, we can use that as the test value of the y series. "The last part of the z series correlates with x series: 11–15 observations." This identification is not useful in winning the competition because x series: 16–20 observations are available. In this example, all data leakages occur due to an exact match.
+According to the \autoref{fig:simulated} step 1 results, the last part of the training set in x series perfectly correlates with z series: 12–16 observations; the last part of y series correlates with x series: 1–5 observations; and the last part of z series correlates with x series: 11–15 observations. However, according to the step 3 results, only "the last part of the y series correlates with the x series: 1–5 observations" identification is useful in winning the competition. The reason is that we have x-series 6:10 observations. Hence, we can use that as the test value of the y series. "The last part of the z series correlates with x series: 11–15 observations"-This identification is not useful in winning the competition because x series: 16–20 observations are not available. In this example, all data leakages occur due to an exact match.
 
 
 
-# Appication to the M1 competition yearly time series data
+# Appication to the M1 Competition Yearly Time Series Data
 
-M-competitions is a series of time-series forecasting competitions organized by Spyros Makridakis and his team [@makridakis2020m4]. M1-competition data is available in the package @mcomp. Before applying the find_dataleaks function, all of the training sets of yearly series are stored in a list called `M1Y_x`. In the M1 competition, the length of the test period for the yearly series is 6. Hence, the `h` value is selected as 6. The cutoff value for the absolute value of Pearson's correlation coefficient is 1.
+M-competitions is a series of time-series forecasting competitions organized by Spyros Makridakis and his team [@makridakis2020m4]. M1-competition data is available in the package Mcomp [@mcomp]. Before applying the find_dataleaks function, all of the training sets of yearly series are stored in a list called `M1Y_x`. In the M1 competition, the length of the test period for the yearly series is 6. Hence, the `h` value is selected as 6. The cutoff value for the absolute value of Pearson's correlation coefficient is 1. The results are shown in \autoref{fig:m1y}.
 
 ```r
 library(Mcomp)
@@ -143,7 +143,7 @@ reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
 
 ![Outputs of viz_dataleaks(m1y_f1) and reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90).\label{fig:m1y}](m1y.png){height=50%}
 
-There are 7 data leakage detentions. Out of them, only three are useful in winning the competition. Two data leakages are due to an exact match; the other is due to a linear transformation of the form $y = mx + c$.
+According to \autoref{fig:m1y}, there are 7 data leakage detentions. Out of them, only three are useful in winning the competition. Two data leakages are due to an exact match; the other is due to a linear transformation of the form $y = mx + c$.
 
 
 ## Documentation and Examples
@@ -152,7 +152,7 @@ Applications to other examples can be found in the README.md file at https://git
 
 # Conclusion
 
-The new open-source R package described in this paper enables: i) exploiting data leakages; ii) identifying the reasons for data leakage as exact matches or adding a constant; and ii) other transformations. iii) determining whether the data leakages identified are useful in winning the forecast competition; and iv) visualizing the results. tsdataleaks is a valuable tool for competition organizers to avoid data leakages, participants to detect data leakages, and the entire forecasting research community to evaluate the quality of data.
+The new open-source R package described in this paper enables: i) exploiting data leakages; ii) identifying the reasons for data leakage as exact matches or adding a constant or  other transformations. iii) determining whether the data leakages identified are useful in winning the forecast competition; and iv) visualizing the results. The R package tsdataleaks is a valuable tool for competition organizers to avoid data leakages, participants to detect data leakages, and the entire forecasting research community to evaluate the quality of data.
 
 # Reproducibility
 
