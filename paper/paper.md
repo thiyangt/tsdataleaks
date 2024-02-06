@@ -68,7 +68,7 @@ The algorithm operates as follows: the algorithm begins by selecting the final s
 
  \autoref{fig:fig21} illustrates the first iteration of the algorithm. The correlation between the purple segment and observations 1–6 of the first time series is measured at the first iteration.
  
- \autoref{fig:fig22} visualize the second iteration of the algorithm. The correlation between the purple segment and observations 2–7 of the first time series is measured at the second iteration. \autoref{fig:fig22} illustrates an intermediate step of the algorithm.
+ \autoref{fig:fig22} visualize the second iteration of the algorithm. The correlation between the purple segment and observations 2–7 of the first time series is measured at the second iteration. \autoref{fig:fig23} illustrates an intermediate step of the algorithm.
 
 
 ![Visualization of the first iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the first step of the algorithm, it computes Pearson's correlation coefficient between the observations 1-6 and the purple segment.\label{fig:fig21}](figure2.png){height=30%}
