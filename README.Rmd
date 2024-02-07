@@ -38,6 +38,15 @@ install.packages("tsdataleaks")
 
 The development version from [GitHub](https://github.com/) with:
 
+
+```r
+install.packages("tsdataleaks")
+library(tsdataleaks)
+```
+
+or
+
+
 ``` r
 # install.packages("devtools")
 devtools::install_github("thiyangt/tsdataleaks")

@@ -21,6 +21,13 @@ install.packages("tsdataleaks")
 The development version from [GitHub](https://github.com/) with:
 
 ``` r
+install.packages("tsdataleaks")
+library(tsdataleaks)
+```
+
+or
+
+``` r
 # install.packages("devtools")
 devtools::install_github("thiyangt/tsdataleaks")
 library(tsdataleaks)
@@ -86,9 +93,36 @@ observarion from 2 to 6.
 
 ``` r
 viz_dataleaks(f1)
+[[1]]
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+
+    [[2]]
+    [[2]]$a
+      .id start end
+    2   b     2   6
+
+    [[2]]$b
+      .id start end
+    1   a     1   5
+    2   b    17  21
+    4   c    11  15
+
+    [[2]]$c
+      .id start end
+    1   a     1   5
+    2   b    17  21
+    3   b    22  26
+
+    [[2]]$d
+      .id start end
+    5   e     6  10
+
+    [[2]]$e
+      .id start end
+    4   d     6  10
 
 ## `reason_dataleaks`
 
@@ -139,9 +173,28 @@ f1 <- find_dataleaks(lst, h=5)
 
 ``` r
 viz_dataleaks(f1)
+#> [[1]]
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+
+    #> 
+    #> [[2]]
+    #> [[2]]$`1`
+    #>   .id start end
+    #> 2   2     2   6
+    #> 
+    #> [[2]]$`2`
+    #>   .id start end
+    #> 1   1     1   5
+    #> 2   2    17  21
+    #> 4   3    11  15
+    #> 
+    #> [[2]]$`3`
+    #>   .id start end
+    #> 1   1     1   5
+    #> 2   2    17  21
+    #> 3   2    22  26
 
 ``` r
 reason_dataleaks(lst, f1, h=5)
@@ -202,9 +255,40 @@ m1y_f1
 
 ``` r
 viz_dataleaks(m1y_f1)
+#> [[1]]
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+
+    #> 
+    #> [[2]]
+    #> [[2]]$YAF17
+    #>     .id start end
+    #> 22 YAM6     9  14
+    #> 
+    #> [[2]]$YAM6
+    #>      .id start end
+    #> 16 YAF17    16  21
+    #> 
+    #> [[2]]$YAM28
+    #>      .id start end
+    #> 78 YAI21    16  21
+    #> 
+    #> [[2]]$YAB3
+    #>     .id start end
+    #> 18 YAM2    14  19
+    #> 
+    #> [[2]]$YAB4
+    #>     .id start end
+    #> 17 YAM1    15  20
+    #> 
+    #> [[2]]$YAI21
+    #>      .id start end
+    #> 43 YAM28    16  21
+    #> 
+    #> [[2]]$YAG29
+    #>       .id start end
+    #> 137 YAC15     6  11
 
 ``` r
 reason_dataleaks(M1Y_x, m1y_f1, h=6, ang=90)
