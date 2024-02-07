@@ -84,6 +84,13 @@ The algorithm operates as follows: the algorithm begins by selecting the final s
 The package tsdataleaks is available on [GitHub](https://github.com/thiyangt/tsdataleaks) and can be installed and loaded into the R session using:
 
 ```r
+install.packages("tsdataleaks")
+library(tsdataleaks)
+```
+
+or
+
+```r
 devtools::install_github("thiyangt/tsdataleaks")
 library(tsdataleaks)
 ```
