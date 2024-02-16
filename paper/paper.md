@@ -29,7 +29,7 @@ Forecasting competitions are of increasing importance as a means to learn best p
 
 Time series forecasting competitions have played a significant role in the advancement of forecasting practices. Typically, in forecasting competitions, a collection of time series is given to the participants, and then the participants submit the forecasts for the required test period for each time series. During the competition period, only the training set for each time series is given to the public, and the test set is kept private from the public. Finally, competition organizers evaluate the forecast accuracy by comparing each participants submitted forecast values against the actual test period values. Participating in forecasting competitions not only aids in the identification of novel methods and facilitates their performance comparison against existing state-of-the-art forecasting techniques, as highlighted by @hyndman2020brief, but also provides empirical evidence crucial for enhancing forecasting performance and advancing the theory and practice of forecasting [@makridakis2022m5].
 
-Data leakage occurs when the training period of the time series includes test period data before officially releasing the test period of the time series.  This idea is illustrated in \autoref{fig:fig1}. A and B are two time series. The latter segment of the training set and the subsequent test set within the (B) series are the same as the red segment highlighted in the training segment inherent to series (A). This type of data leak could occur when randomly chosen blocks of time series are concatenated to form a new time series. 
+Data leakage occurs when the training period of the time series includes test period data before officially releasing the test period of the time series.  This idea is illustrated in \autoref{fig:fig1}. A and B are two time series. The latter segment of the training set and the subsequent test set within the (A) series are the same as the red segment highlighted in the training segment inherent to series (B). This type of data leak could occur when randomly chosen blocks of time series are concatenated to form a new time series. 
 
 ![An example of a time series data leak. "A" and "B"" are two time series. The green vertical line and yellow background separate the training and test parts of the series. A training segment of series B (red colour segment) is the source of the latter segment of the training set and test set of the A series.\label{fig:fig1}](figure1.png){height=30%}
 
@@ -50,7 +50,7 @@ The algorithm operates as follows: the algorithm begins by selecting the final s
 | **Algorithm: Time Series Matching**                                 |
 |---------------------------------------------------------------------|
 | **Input:**                                                          |
-| 1. *lst*: A collection of time series as a list in R.     |
+| 1. *lstx*: A collection of time series as a list in R.     |
 | 2. *h*: Length of the segment to be considered.        |
 | 3. *cutoff*: Cut-off value for the absolute value of the Pearson's correlation coefficient. |
 |                                                                     |
@@ -66,14 +66,14 @@ The algorithm operates as follows: the algorithm begins by selecting the final s
 |   3. *Return* the matching segments list as the output.             |
 
 
- \autoref{fig:fig21} illustrates the first iteration of the algorithm. The correlation between the purple segment and observations 1–6 of the first time series is measured at the first iteration.
+ \autoref{fig:fig21} illustrates the first iteration of the algorithm. The correlation between the purple segment and observations 1–6 (dark green section) of the first time series is measured at the first iteration.
  
- \autoref{fig:fig22} visualize the second iteration of the algorithm. The correlation between the purple segment and observations 2–7 of the first time series is measured at the second iteration. \autoref{fig:fig23} illustrates an intermediate step of the algorithm.
+ \autoref{fig:fig22} visualize the second iteration of the algorithm. The correlation between the purple segment and observations 2–7 (dark green section) of the first time series is measured at the second iteration. \autoref{fig:fig23} illustrates an intermediate step of the algorithm.
 
 
-![Visualization of the first iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the first step of the algorithm, it computes Pearson's correlation coefficient between the observations 1-6 and the purple segment.\label{fig:fig21}](figure2.png){height=30%}
+![Visualization of the first iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the first step of the algorithm, it computes Pearson's correlation coefficient between the observations 1-6 (dark green section) and the purple segment.\label{fig:fig21}](figure2.png){height=30%}
 
-![Visualization of the second iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the second step of the algorithm, it computes Pearson's correlation coefficient between the observations 2-7 and the purple segment.\label{fig:fig22}](fig22.png){height=30%}
+![Visualization of the second iteration of the algorithm. The last segment of the training part of the first series is colored purple. As the second step of the algorithm, it computes Pearson's correlation coefficient between the observations 2-7 (dark green section) and the purple segment.\label{fig:fig22}](fig22.png){height=30%}
 
 ![Intermediate step of the algorithm: identification of potential data leaks. The light purple section of the fourth series perfectly correlates with the last segment of the first series. Hence, the red section of the fourth series could be the test part of the first series. \label{fig:fig23}](fig23.png){height=30%}
 
@@ -81,7 +81,7 @@ The algorithm operates as follows: the algorithm begins by selecting the final s
 
 ## Installation
 
-The package tsdataleaks is available on [GitHub](https://github.com/thiyangt/tsdataleaks) and can be installed and loaded into the R session using:
+The package tsdataleaks is available on both CRAN and [GitHub](https://github.com/thiyangt/tsdataleaks) and can be installed and loaded into the R session using:
 
 ```r
 install.packages("tsdataleaks")
