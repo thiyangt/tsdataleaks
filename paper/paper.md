@@ -31,7 +31,7 @@ Time series forecasting competitions have played a significant role in the advan
 
 Data leakage occurs when the training period of the time series includes test period data before officially releasing the test period of the time series.  This idea is illustrated in \autoref{fig:fig1}. A and B are two time series. The latter segment of the training set and the subsequent test set within the (B) series are the same as the red segment highlighted in the training segment inherent to series (A). This type of data leak could occur when randomly chosen blocks of time series are concatenated to form a new time series. 
 
-![An example of a time series data leak. "A" and "B"" are two time series. The green verticle line and yellow background separates the training and test parts of the series. A training segment of series B (red colour segment) is the source of the latter segment of the training set and test set of the A series.\label{fig:fig1}](figure1.png){height=30%}
+![An example of a time series data leak. "A" and "B"" are two time series. The green vertical line and yellow background separate the training and test parts of the series. A training segment of series B (red colour segment) is the source of the latter segment of the training set and test set of the A series.\label{fig:fig1}](figure1.png){height=30%}
 
 Competitions with data leaks will not be able to reach their original purpose. By exploiting data leakage, competitors can obtain a top rank in the leaderboard. Such models look highly accurate within the competition environment but become inaccurate when applied to a data set outside the competition environment. Hence, there is an increasing need to examine the potential data leaks in time series before the release of data to the public. The tsdataleaks package is designed to identify data leaks in time series.
 
@@ -122,7 +122,7 @@ f1 <- find_dataleaks(lstx = lst, h=5, cutoff=1)
 viz_dataleaks(f1)
 ```
 
-**Step 3:** `reason_dataleaks` displays the reasons for data leaks and evaluate usefulness of data leaks towards the winning of the competition. The inputs to the function are list of time series collection (lstx), length of the segment to be considered (h), output of the find_dataleaks function (finddataleaksout). The corresponding outputs are shown in \autoref{fig:simulated} (step3).
+**Step 3:** `reason\_dataleaks` displays the reasons for data leaks and evaluates the usefulness of data leaks towards the winning of the competition. The inputs to the function are a list of time series collections (lstx), length of the segment to be considered (h), output of the find\_dataleaks function (finddataleaksout). The corresponding outputs are shown in \autoref{fig:simulated} (step3).
 
 ```r
 reason_dataleaks(lstx = lst, finddataleaksout = f1, h=5)
