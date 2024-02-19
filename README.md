@@ -11,6 +11,8 @@ status](https://www.r-pkg.org/badges/version/tsdataleaks)\](<https://CRAN.R-proj
 R Package for detecting data leakages in time series forecasting
 competitions.
 
+<img src="paper/poster.png" align="center"/>
+
 ## Installation
 
 <!--You can install the released version of tsdataleaks from -->
